@@ -111,7 +111,8 @@ public class ControleDeEmprestimosController implements Initializable {
 
         btnDevolver.setOnAction(e -> {
             System.out.println("Devolvendo: " + emp.getLivro().getNome());
-            // Aqui você chamaria o service.registrarDevolucao(emp);
+            service.registrarDevolucao(emp);
+
             renderizarEmprestimos(); // Atualiza a tela
         });
 

@@ -118,36 +118,35 @@ public class BibliotecarioService {
         }
 
         Livro livro = e.getLivro();
+        Usuario user= e.getUsuario();
 
-         boolean atrasado = java.time.LocalDate.now().isAfter(e.getDataDevolucao());
-        e.setDataDevolucao(java.time.LocalDate.now());
-        e.setAtrasado(atrasado);
-
-        // Libera o exemplar físico
         livro.setDisponivel(true);
 
         // Remove o empréstimo do registro do Título (já existia, mantido)
         for (Titulo titulo : b.getTitulos().listar()) {
             if (livro.getIsbn().equalsIgnoreCase(titulo.getIsbn())) {
                 titulo.removerEmprestimo(e); // decrementa quantidadeDisponivel internamente
+                if(!titulo.getFilaDeReservas().estaVazia()){
+                    if(atenderPrimeirosDaFila(titulo)){
+                        System.out.println("Foi possivel atender o primeiro dafila");
+                    }else {
+                        System.out.println("N Foi possivel atender o primeiro dafila");
+                    };
+                }
+                break;
             }
         }
-
         // Remove do registro do Usuário
-        // OBS: Usuario.removerEmprestimo() ainda está incompleto nos models.
-        // Quando o responsável pelos models implementar, descomentar:
-        // e.getUsuario().removerEmprestimo(e);
+        user.removerEmprestimo(e);
+        // Remove da lista global da bibliotec
+        b.getListaDeEmprestimos().apagarPorId(e.getId());
 
-        // Remove da lista global da biblioteca
-        // OBS: EmprestimoDAOLista.apagar() ainda está incompleto nos models.
-        // Quando implementado, descomentar:
-        // b.getListaDeEmprestimos().apagar(e.getId());
-
-        if (atrasado) {
+        if (e.isAtrasado()) {
             System.out.println("⚠️ Devolução registrada com atraso para: " + e.getUsuario().getNome());
         } else {
             System.out.println("✅ Devolução registrada com sucesso para: " + e.getUsuario().getNome());
         }
+
         return true;
     }
 
@@ -163,7 +162,6 @@ public class BibliotecarioService {
      * internamente ao reconstruir a lista de títulos.
      */
     public Titulo[] listarInventario() {
-        // CORRIGIDO: corpo vazio — implementado com os métodos corretos
         return b.getTitulos().listar();
     }
 
@@ -193,7 +191,7 @@ public class BibliotecarioService {
      * auxiliar (ReservaDAOLista) para retornar como array.
      */
     public Reserva[] listarPrimeirosDasFilaDeReservasDeCadaTitulo() {
-        // CORRIGIDO: corpo vazio — implementado conforme comentário original do método
+
         ReservaDAOLista listaAuxiliar = new ReservaDAOLista();
         for (Titulo t : b.getTitulos().listar()) {
             Reserva primeira = t.getFilaDeReservas().proximo(); // peek sem remover
@@ -220,20 +218,11 @@ public class BibliotecarioService {
 
     /**
      * Efetua o empréstimo para o primeiro da fila de reservas de um título.
-     *
-     * ALTERAÇÃO COMPLETA: o método original usava diversas variáveis e métodos
-     * inexistentes: listaDeLivros, listaDeEmprestimos, isEstaDisponivel(),
-     * desenfileirar(), gerarIdEmprestimo(), EmprestimoUtils, e o construtor
-     * Emprestimo(id, livro, data, data) que não existe — o correto é
-     * Emprestimo(Usuario, Livro). O prazoEmDias usava getCategoria() (inexistente,
-     * correto é getTipo()) e cases com letras minúsculas (Professor/Aluno).
-     * Tudo foi reescrito usando apenas métodos e construtores existentes.
-     *
      * @param titulo o título cujo primeiro da fila será atendido
      * @return true se o empréstimo foi gerado; false se fila vazia ou sem exemplar
      */
     public boolean atenderPrimeirosDaFila(Titulo titulo) {
-        // CORRIGIDO: era titulo.getFilaDeReservas().peek() — correto é titulo.filaDeReservas.proximo()
+
         Reserva proxima = titulo.getFilaDeReservas().proximo();
         if (proxima == null) {
             System.out.println("Fila de reservas vazia para: " + titulo.getNome());
@@ -241,8 +230,6 @@ public class BibliotecarioService {
         }
 
         // Busca exemplar disponível diretamente no Título
-        // CORRIGIDO: era listaDeLivros.getLista().stream() com isEstaDisponivel() — inexistentes.
-        // getExemplarDisponivel() já faz isso dentro de Titulo.
         Livro exemplar = titulo.getExemplarDisponivel();
         if (exemplar == null) {
             System.out.println("Nenhum exemplar disponível de: " + titulo.getNome());
@@ -250,21 +237,17 @@ public class BibliotecarioService {
         }
 
         // Remove o primeiro da fila
-        // CORRIGIDO: era titulo.getFilaDeReservas().desenfileirar() — inexistente.
-        // Correto é removerProximo()
         titulo.getFilaDeReservas().removerProximo();
         b.getListaDeReservas().apagar(proxima.getId()); // remove também da lista global
 
         Usuario beneficiario = proxima.getUsuario();
 
         // Cria o empréstimo
-        // CORRIGIDO: era new Emprestimo(id, livro, data, data) — construtor inexistente.
         // O prazo é calculado automaticamente pelo construtor Emprestimo(Usuario, Livro)
         // com base no tipo do usuário (ALUNO=7 dias, outros=10 dias)
-        exemplar.setDisponivel(false); // CORRIGIDO: era setEstaDisponivel() — inexistente
+        exemplar.setDisponivel(false);
         Emprestimo emprestimo = new Emprestimo(beneficiario, exemplar);
 
-        // CORRIGIDO: era beneficiario.pegarLivro() e listaDeEmprestimos.adicionar() — inexistentes
         beneficiario.adicionarEmprestimo(emprestimo);
         b.getListaDeEmprestimos().salvar(emprestimo);
         titulo.registrarEmprestimo(emprestimo); // decrementa quantidadeDisponivel

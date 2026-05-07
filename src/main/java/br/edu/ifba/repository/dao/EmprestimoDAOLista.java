@@ -84,4 +84,14 @@ public class EmprestimoDAOLista {
     public Emprestimo remover(int i){
         return listaEmprestimos.apagar(i);
     }
+
+    public Emprestimo apagarPorId(long id) {
+        for (int i = 0; i < listaEmprestimos.tamanho(); i++) {
+            Emprestimo e = listaEmprestimos.selecionar(i);
+            if (e.getId()==id) {
+                return listaEmprestimos.apagar(i);
+            }
+        }
+        return null;
+    }
 }
