@@ -16,6 +16,10 @@ public class BibliotecarioService {
         b = Biblioteca.getInstance();
     }
 
+    public Biblioteca getB() {
+        return b;
+    }
+
     // =========================================================================
     // DASHBOARD — dados gerais (tela do bibliotecário)
     // =========================================================================
@@ -23,6 +27,10 @@ public class BibliotecarioService {
     /** Total de exemplares (livros físicos) no acervo. */
     public int getTotalLivros() {
         return b.getAcervo().quantidade();
+    }
+
+    public Titulo[] obterCatalogo() {
+        return b.getTitulos().listar();
     }
 
     /** Número total de empréstimos registrados (ativos e encerrados). */
@@ -103,21 +111,6 @@ public class BibliotecarioService {
     // DEVOLUÇÕES — tela de controle de devoluções
     // =========================================================================
 
-    /**
-     * Registra a devolução de um empréstimo pelo bibliotecário.
-     *
-     * ALTERAÇÃO: o método original estava incompleto (comentário "Completar").
-     * Adicionadas as etapas que faltavam:
-     * - marcar data de devolução real e verificar atraso em Emprestimo
-     * - remover o empréstimo do registro do Usuário (quando removerEmprestimo
-     *   for implementado nos models)
-     * - remover da lista global da biblioteca (quando apagar() for implementado
-     *   em EmprestimoDAOLista)
-     * O trecho de remoção no Título já existia e foi mantido.
-     *
-     * @param e o empréstimo a ser encerrado
-     * @return true se processado; false se nulo
-     */
     public boolean registrarDevolucao(Emprestimo e) {
         if (e == null) {
             System.out.println("Empréstimo não encontrado ou já encerrado.");
@@ -126,9 +119,7 @@ public class BibliotecarioService {
 
         Livro livro = e.getLivro();
 
-        // Marca data de devolução real e verifica se está atrasado
-        // ADICIONADO: estas linhas estavam faltando no método original
-        boolean atrasado = java.time.LocalDate.now().isAfter(e.getDataDevolucao());
+         boolean atrasado = java.time.LocalDate.now().isAfter(e.getDataDevolucao());
         e.setDataDevolucao(java.time.LocalDate.now());
         e.setAtrasado(atrasado);
 
