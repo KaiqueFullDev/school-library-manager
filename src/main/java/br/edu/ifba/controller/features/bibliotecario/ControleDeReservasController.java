@@ -7,6 +7,7 @@ import br.edu.ifba.models.Usuario;
 import br.edu.ifba.repository.dao.ReservaDAOFilaDePrioridade;
 import br.edu.ifba.service.BibliotecarioService;
 import br.edu.ifba.util.Sessao;
+import br.edu.ifba.util.Tools;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -142,7 +143,15 @@ public class ControleDeReservasController implements Initializable {
         try {
             Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-        } catch (IOException e) { e.printStackTrace(); }
+            Tools.trocarCenaPreservandoJanela(stage, root);
+        } catch (IOException e) {
+            System.err.println("Erro ao navegar para " + fxmlPath + ": " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        System.out.println("Controle de Reservas inicializado");
     }
 }

@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -161,7 +160,7 @@ public class DetalheLivroController implements Initializable {
 
     @FXML private void onVoltar() { navegarPara("/views/usuarioViews/Catalogo.fxml"); }
 
-    @FXML private void onLogout() { navegarPara("/views/AuthViews/Login.fxml"); }
+    @FXML private void onLogout() { navegarPara("/views/AuthViews/login.fxml"); }
 
     @FXML private void onNavCatalogo()    { navegarPara("/views/usuarioViews/Catalogo.fxml"); }
     @FXML private void onNavEmprestimos() { navegarPara("/views/usuarioViews/Emprestimos.fxml"); }
@@ -172,17 +171,7 @@ public class DetalheLivroController implements Initializable {
         try {
             Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
             Stage stage = (Stage) lblTitulo.getScene().getWindow();
-            
-            // Preserva o estado de maximização
-            boolean estaMaximizada = stage.isMaximized();
-
-            stage.setScene(new Scene(root, stage.getWidth(), stage.getHeight()));
-            
-            // Restaura o estado de maximização
-            if (estaMaximizada) {
-                stage.setMaximized(false);
-                stage.setMaximized(true);
-            }
+            Tools.trocarCenaPreservandoJanela(stage, root);
         } catch (IOException e) {
             System.err.println("Erro ao navegar para: " + fxmlPath);
             e.printStackTrace();

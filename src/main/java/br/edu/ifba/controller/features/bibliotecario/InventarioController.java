@@ -3,6 +3,7 @@ package br.edu.ifba.controller.features.bibliotecario;
 import br.edu.ifba.models.Titulo;
 import br.edu.ifba.service.BibliotecarioService;
 import br.edu.ifba.util.Sessao;
+import br.edu.ifba.util.Tools;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -10,7 +11,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
@@ -110,7 +110,7 @@ public class InventarioController implements Initializable {
         try {
             Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
+            Tools.trocarCenaPreservandoJanela(stage, root);
         } catch (IOException e) { e.printStackTrace(); }
     }
 }

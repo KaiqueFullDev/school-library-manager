@@ -4,13 +4,13 @@ import br.edu.ifba.models.Reserva;
 import br.edu.ifba.models.Usuario;
 import br.edu.ifba.service.BibliotecarioService;
 import br.edu.ifba.util.Sessao;
+import br.edu.ifba.util.Tools;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -96,7 +96,7 @@ public class DashboardController implements Initializable {
             Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
             // Pega o Stage através do mainContainer (BorderPane)
             Stage stage = (Stage) mainContainer.getScene().getWindow();
-            stage.setScene(new Scene(root));
+            Tools.trocarCenaPreservandoJanela(stage, root);
         } catch (IOException e) {
             System.err.println("Erro ao navegar: " + e.getMessage());
             e.printStackTrace();
