@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -15,10 +16,26 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+
 public class AdicionarLivroController implements Initializable {
     
     @FXML
     private BorderPane rootPane;
+
+    @FXML
+    private TextField txtTitulo;
+
+    @FXML
+    private TextField txtIsbn;
+
+    @FXML
+    private TextField txtAutor;
+
+    @FXML
+    private TextField txtAno;
+
+    @FXML
+    private TextField txtIdExemplar;
 
     @FXML
     private void handleLogout(MouseEvent event) {
@@ -91,6 +108,8 @@ public class AdicionarLivroController implements Initializable {
             e.printStackTrace();
         }
     }
+
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

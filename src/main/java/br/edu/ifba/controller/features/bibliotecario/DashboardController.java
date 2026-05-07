@@ -1,98 +1,104 @@
 package br.edu.ifba.controller.features.bibliotecario;
 
+import br.edu.ifba.models.Reserva;
 import br.edu.ifba.models.Usuario;
 import br.edu.ifba.service.BibliotecarioService;
 import br.edu.ifba.util.Sessao;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class DashboardController implements Initializable {
-    private Usuario user;
-    private BibliotecarioService bibliotecarioService;
-    
-    public Label userLabel;
-    @FXML private Label lblQtdAcervo;
-    @FXML private Label lblQtdEmprestimos;
-    @FXML private Label lblQtdHoje;
-    @FXML private Label lblQtdAtrasos;
-    @FXML private Label lblQtdReservas;
-    @FXML private Label lblQtdUsuariosAtraso;
-    
-    @FXML private VBox bibliotecarioVBox;
 
-    public void handleLogout() {
-        try {
-            Sessao.encerrarSessao();
-            System.out.println("Logout realizado. Redirecionando para a tela de login...");
-            
-            Parent root = FXMLLoader.load(getClass().getResource("/views/AuthViews/login.fxml"));
-            Stage stage = (Stage) bibliotecarioVBox.getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.centerOnScreen();
-            stage.show();
-        } catch (IOException e) {
-            System.err.println("Erro ao fazer logout: " + e.getMessage());
-            e.printStackTrace();
+    @FXML private Label userLabel, lblQtdAcervo, lblQtdEmprestimos, lblQtdHoje,
+            lblQtdAtrasos, lblQtdReservas, lblQtdUsuariosAtraso, lblFilaContagem;
+
+    @FXML private ListView<Reserva> lvFilaReserva;
+
+    // CORREÇÃO: O tipo deve ser BorderPane para coincidir com o FXML
+    @FXML private BorderPane mainContainer;
+
+    private BibliotecarioService service;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        Usuario logado = Sessao.getUsuarioLogado();
+
+        if (logado != null) {
+            userLabel.setText(logado.getNome());
+            this.service = new BibliotecarioService(logado);
+            carregarDadosDashboard();
+            configurarListaDeReservas();
         }
     }
 
-    @FXML private void onNavDashboard() {}
+    private void carregarDadosDashboard() {
+        try {
+            lblQtdAcervo.setText(String.valueOf(service.getTotalLivros()));
+            lblQtdEmprestimos.setText(String.valueOf(service.getNumeroEmprestimosAtivos()));
+            lblQtdAtrasos.setText(String.valueOf(service.getNumeroEmprestimosAtrasados()));
+            lblQtdReservas.setText(String.valueOf(service.getTotalReservas()));
+            lblQtdUsuariosAtraso.setText(String.valueOf(service.getUsuariosComAtraso()));
+            lblQtdHoje.setText(String.valueOf(service.getNumeroEmprestimosHoje()));
+            lblFilaContagem.setText("(" + service.getTotalReservas() + ")");
+        } catch (Exception e) {
+            System.err.println("Erro ao carregar dados do Service: " + e.getMessage());
+        }
+    }
+
+    private void configurarListaDeReservas() {
+        // Busca as reservas reais do service
+        ObservableList<Reserva> reservas = FXCollections.observableArrayList(service.listarPrimeirosDasFilaDeReservasDeCadaTitulo());
+        lvFilaReserva.setItems(reservas);
+
+        lvFilaReserva.setCellFactory(param -> new ListCell<>() {
+            @Override
+            protected void updateItem(Reserva reserva, boolean empty) {
+                super.updateItem(reserva, empty);
+                if (empty || reserva == null) {
+                    setText(null);
+                    setGraphic(null);
+                    setStyle("-fx-background-color: transparent;");
+                } else {
+                    setText(reserva.getUsuario().getNome() + " — " + reserva.getTitulo().getNome());
+                    setStyle("-fx-background-color: #F8F9FB; -fx-padding: 8; -fx-background-radius: 5; -fx-margin: 2;");
+                }
+            }
+        });
+    }
+
+    @FXML
+    private void handleLogout() {
+        Sessao.encerrarSessao();
+        navegarPara("/views/AuthViews/login.fxml");
+    }
+
+    @FXML private void onNavDashboard() { /* Página atual */ }
     @FXML private void onNavInventario() { navegarPara("/views/bibliotecarioViews/inventario.fxml"); }
     @FXML private void onNavReservas() { navegarPara("/views/bibliotecarioViews/controleDeReservas.fxml"); }
     @FXML private void onNavEmprestimos() { navegarPara("/views/bibliotecarioViews/controleDeEmprestimos.fxml"); }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        this.user = Sessao.getUsuarioLogado();
-        this.userLabel.setText(this.user.getNome());
-        
-        this.bibliotecarioService = new BibliotecarioService(this.user);
-        carregarDadosDashboard();
-    }
-    
-    private void carregarDadosDashboard() {
-        lblQtdAcervo.setText(String.valueOf(bibliotecarioService.getTotalLivros()));
-        lblQtdEmprestimos.setText(String.valueOf(bibliotecarioService.getNumeroEmprestimosAtivos()));
-        lblQtdAtrasos.setText(String.valueOf(bibliotecarioService.getNumeroEmprestimosAtrasados()));
-        lblQtdReservas.setText(String.valueOf(bibliotecarioService.getTotalReservas()));
-        lblQtdUsuariosAtraso.setText(String.valueOf(bibliotecarioService.getUsuariosComAtraso()));
-        lblQtdHoje.setText(String.valueOf(bibliotecarioService.getNumeroEmprestimosHoje()));
-    }
-
     private void navegarPara(String fxmlPath) {
         try {
-            System.out.println("Navegando para: " + fxmlPath);
-            URL resource = Objects.requireNonNull(getClass().getResource(fxmlPath), "Recurso não encontrado: " + fxmlPath);
-            Parent root = FXMLLoader.load(resource);
-            Stage stage = (Stage) bibliotecarioVBox.getScene().getWindow();
-            
-            // Preserva o estado de maximizaçãoP
-            boolean estaMaximizada = stage.isMaximized();
-            
-            Scene newScene = new Scene(root);
-            stage.setScene(newScene);
-            
-            // Restaura o estado de maximização
-            if (estaMaximizada) {
-                stage.setMaximized(false);
-                stage.setMaximized(true);
-            }
-            
-            System.out.println("Navegação concluída para: " + fxmlPath);
-        } catch (IOException | NullPointerException e) {
-            System.err.println("Erro ao navegar para " + fxmlPath + ": " + e.getMessage());
+            Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
+            // Pega o Stage através do mainContainer (BorderPane)
+            Stage stage = (Stage) mainContainer.getScene().getWindow();
+            stage.setScene(new Scene(root));
+        } catch (IOException e) {
+            System.err.println("Erro ao navegar: " + e.getMessage());
             e.printStackTrace();
         }
     }

@@ -13,9 +13,6 @@ public class BibliotecarioService {
     private Biblioteca b;
 
     public BibliotecarioService(Usuario userLogado) {
-        // ALTERAÇÃO: removida variável local "Usuario user = userLogado" — estava
-        // sendo criada e nunca usada. BibliotecarioService não precisa guardar o
-        // usuário logado, apenas a instância da Biblioteca.
         b = Biblioteca.getInstance();
     }
 
