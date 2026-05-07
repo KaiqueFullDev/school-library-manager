@@ -1,6 +1,9 @@
 package br.edu.ifba.service;
 
 import br.edu.ifba.models.*;
+import br.edu.ifba.repository.dao.EmprestimoDAOLista;
+import br.edu.ifba.repository.dao.LivroDAOLista;
+import br.edu.ifba.repository.dao.ReservaDAOFilaDePrioridade;
 import br.edu.ifba.repository.dao.ReservaDAOLista;
 
 // ALTERAÇÃO: removidos imports de "repository.*", "java.util.List", "java.util.stream.Collectors"
@@ -308,10 +311,19 @@ public class BibliotecarioService {
             System.out.println("Livro inválido.");
             return;
         }
-        // CORRIGIDO: era listaDeLivros.adicionar() — variável e método inexistentes.
-        // Correto é b.getAcervo().salvar()
+
         b.getAcervo().salvar(livro);
-        System.out.println("✅ Livro '" + livro.getNome() + "' adicionado ao acervo.");
+        for(Titulo t : b.getTitulos().listar()){
+            if(livro.getIsbn().equalsIgnoreCase(t.getIsbn())){
+                t.getListaDeExemplares().salvar(livro);
+                System.out.println("✅ Livro '" + livro.getNome() + "' adicionado ao acervo");
+                return;
+            }
+        }
+
+        LivroDAOLista novaListaDeExemplares= new LivroDAOLista();
+        novaListaDeExemplares.salvar(livro);
+        b.getTitulos().salvar(new Titulo(novaListaDeExemplares, new EmprestimoDAOLista(), new ReservaDAOFilaDePrioridade()));
     }
 
     /**
