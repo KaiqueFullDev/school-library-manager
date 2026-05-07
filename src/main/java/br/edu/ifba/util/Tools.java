@@ -1,5 +1,6 @@
 package br.edu.ifba.util;
 
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
@@ -27,19 +28,7 @@ public class Tools {
             // Pega o Stage atual
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-            // Preserva o estado de maximização
-            boolean estaMaximizada = stage.isMaximized();
-
-            // Define a nova cena
-            stage.setScene(new Scene(root));
-
-            // Restaura o estado de maximização
-            if (estaMaximizada) {
-                stage.setMaximized(false);
-                stage.setMaximized(true);
-            }
-
-            stage.show();
+            trocarCenaPreservandoJanela(stage, root);
 
         } catch (IOException e) {
             Tools.enviarAlerta("Erro ao carregar a tela: " + e);
@@ -56,24 +45,30 @@ public class Tools {
         try {
             Parent root = FXMLLoader.load(Tools.class.getResource(caminhoFXML));
             Stage stage = (Stage) source.getScene().getWindow();
-            
-            // Preserva o estado de maximização
-            boolean estaMaximizada = stage.isMaximized();
-            
-            stage.setScene(new Scene(root));
-            
-            // Restaura o estado de maximização
-            if (estaMaximizada) {
-                stage.setMaximized(false);
-                stage.setMaximized(true);
-            }
-            
-            stage.show();
+
+            trocarCenaPreservandoJanela(stage, root);
         } catch (IOException e) {
             Tools.enviarAlerta("Erro ao carregar a tela: " + e);
             System.err.println("Erro ao carregar a tela: " + caminhoFXML);
             e.printStackTrace();
         }
+    }
+
+    public static void trocarCenaPreservandoJanela(Stage stage, Parent root) {
+        boolean estaMaximizada = stage.isMaximized();
+        double largura = stage.getWidth();
+        double altura = stage.getHeight();
+
+        stage.setScene(new Scene(root, largura, altura));
+
+        if (estaMaximizada) {
+            Platform.runLater(() -> stage.setMaximized(true));
+        } else {
+            stage.setWidth(largura);
+            stage.setHeight(altura);
+        }
+
+        stage.show();
     }
 
 }

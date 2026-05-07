@@ -5,7 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -15,6 +14,7 @@ import br.edu.ifba.models.Titulo;
 import br.edu.ifba.models.Usuario;
 import br.edu.ifba.service.UsuarioService;
 import br.edu.ifba.util.Sessao;
+import br.edu.ifba.util.Tools;
 
 import java.io.IOException;
 import java.net.URL;
@@ -138,9 +138,7 @@ public class CatalogoController implements Initializable {
 
             // 4. Troca a cena
             Stage stage = (Stage) listaLivrosContainer.getScene().getWindow();
-            stage.setScene(new Scene(root));
-
-            stage.show();
+            Tools.trocarCenaPreservandoJanela(stage, root);
 
         } catch (IOException e) {
             System.err.println("Erro ao abrir detalhes do livro: " + t.getNome());
@@ -161,17 +159,7 @@ public class CatalogoController implements Initializable {
         try {
             Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
             Stage stage = (Stage) listaLivrosContainer.getScene().getWindow();
-            
-            // Preserva o estado de maximização
-            boolean estaMaximizada = stage.isMaximized();
-            
-            stage.setScene(new Scene(root));
-            
-            // Restaura o estado de maximização
-            if (estaMaximizada) {
-                stage.setMaximized(false);
-                stage.setMaximized(true);
-            }
+            Tools.trocarCenaPreservandoJanela(stage, root);
 
         } catch (IOException e) {
             System.err.println("Erro ao navegar para: " + fxmlPath);
