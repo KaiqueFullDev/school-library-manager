@@ -1,13 +1,13 @@
 package br.edu.ifba.controller.features.bibliotecario;
 
 import br.edu.ifba.util.Sessao;
+import br.edu.ifba.util.Tools;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import java.io.IOException;
@@ -24,10 +24,7 @@ public class ControleDeEmprestimosController implements Initializable {
             
             Parent root = FXMLLoader.load(getClass().getResource("/views/AuthViews/login.fxml"));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.centerOnScreen();
-            stage.show();
+            Tools.trocarCenaPreservandoJanela(stage, root);
         } catch (IOException e) {
             System.err.println("Erro ao fazer logout: " + e.getMessage());
             e.printStackTrace();
@@ -65,18 +62,7 @@ public class ControleDeEmprestimosController implements Initializable {
             System.out.println("Navegando para: " + fxmlPath);
             Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            
-            // Preserva o estado de maximização
-            boolean estaMaximizada = stage.isMaximized();
-            
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            
-            // Restaura o estado de maximização
-            if (estaMaximizada) {
-                stage.setMaximized(false);
-                stage.setMaximized(true);
-            }
+            Tools.trocarCenaPreservandoJanela(stage, root);
         } catch (IOException e) {
             System.err.println("Erro ao navegar para " + fxmlPath + ": " + e.getMessage());
             e.printStackTrace();
