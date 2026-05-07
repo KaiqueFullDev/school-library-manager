@@ -50,10 +50,10 @@
     <bottom>
         <HBox alignment="CENTER" prefHeight="85.0" style="-fx-background-color: white; -fx-border-color: #D1D1D1 transparent transparent transparent;">
             <HBox spacing="60" alignment="CENTER" HBox.hgrow="ALWAYS">
-                <ImageView fitHeight="55.0" onMouseClicked="#dashboardController" style="-fx-cursor: hand;"><Image url="@../../images/botaoDashboard.jpeg" /></ImageView>
-                <ImageView fitHeight="55.0" onMouseClicked="#inventarioController" style="-fx-cursor: hand;"><Image url="@../../images/botaoInventario.jpeg" /></ImageView>
-                <ImageView fitHeight="55.0" onMouseClicked="#controleDeReservasController" style="-fx-cursor: hand;"><Image url="@../../images/botaoFilaDeReserva.jpeg" /></ImageView>
-                <ImageView fitHeight="55.0" onMouseClicked="#controleDeEmprestimosController" style="-fx-cursor: hand;"><Image url="@../../images/botaoDevolucoes.jpeg" /></ImageView>
+                <ImageView fitHeight="55.0" onMouseClicked="#dashboardController" preserveRatio="true" style="-fx-cursor: hand;"><Image url="@../../images/botaoDashboard.jpeg" /></ImageView>
+                <ImageView fitHeight="55.0" onMouseClicked="#inventarioController" preserveRatio="true" style="-fx-cursor: hand;"><Image url="@../../images/botaoInventario.jpeg" /></ImageView>
+                <ImageView fitHeight="55.0" onMouseClicked="#controleDeReservasController" preserveRatio="true" style="-fx-cursor: hand;"><Image url="@../../images/botaoFilaDeReserva.jpeg" /></ImageView>
+                <ImageView fitHeight="55.0" onMouseClicked="#controleDeEmprestimosController" preserveRatio="true" style="-fx-cursor: hand;"><Image url="@../../images/botaoDevolucoes.jpeg" /></ImageView>
             </HBox>
         </HBox>
     </bottom>
