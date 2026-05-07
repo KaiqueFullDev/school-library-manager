@@ -3,8 +3,6 @@ package br.edu.ifba.controller.features.bibliotecario;
 import br.edu.ifba.models.Emprestimo;
 import br.edu.ifba.service.BibliotecarioService;
 import br.edu.ifba.util.Sessao;
-import br.edu.ifba.util.Tools;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -29,19 +27,19 @@ import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class ControleDeEmprestimosController implements Initializable {
-    
-    @FXML
-    private void handleLogout(MouseEvent event) {
-        try {
-            Sessao.encerrarSessao();
-            System.out.println("Logout realizado. Redirecionando para login...");
-            
-            Parent root = FXMLLoader.load(getClass().getResource("/views/AuthViews/login.fxml"));
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Tools.trocarCenaPreservandoJanela(stage, root);
-        } catch (IOException e) {
-            System.err.println("Erro ao fazer logout: " + e.getMessage());
-            e.printStackTrace();
+
+    @FXML private Label NomeUsuario;
+    @FXML private FlowPane containerDevolucoes;
+
+    private BibliotecarioService service;
+    private final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        if (Sessao.getUsuarioLogado() != null) {
+            this.NomeUsuario.setText(Sessao.getUsuarioLogado().getNome());
+            this.service = new BibliotecarioService(Sessao.getUsuarioLogado());
+            renderizarEmprestimos();
         }
     }
 
@@ -114,7 +112,6 @@ public class ControleDeEmprestimosController implements Initializable {
         btnDevolver.setOnAction(e -> {
             System.out.println("Devolvendo: " + emp.getLivro().getNome());
             service.registrarDevolucao(emp);
-
             renderizarEmprestimos(); // Atualiza a tela
         });
 
@@ -148,15 +145,7 @@ public class ControleDeEmprestimosController implements Initializable {
         try {
             Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Tools.trocarCenaPreservandoJanela(stage, root);
-        } catch (IOException e) {
-            System.err.println("Erro ao navegar para " + fxmlPath + ": " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        System.out.println("Controle de Empréstimos inicializado");
+            stage.setScene(new Scene(root));
+        } catch (IOException e) { e.printStackTrace(); }
     }
 }
