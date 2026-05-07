@@ -2,194 +2,49 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.FlowPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Line?>
+<?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/25.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifba.controller.features.bibliotecario.ControleDeEmprestimosController">
+<BorderPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifba.controller.features.bibliotecario.ControleDeEmprestimosController">
     <top>
-        <HBox alignment="CENTER_LEFT" maxHeight="80.0" minHeight="80.0" prefHeight="80.0" style="-fx-background-color: #1A3783;" BorderPane.alignment="CENTER">
+        <HBox alignment="CENTER_LEFT" prefHeight="80.0" style="-fx-background-color: #1A3783;">
             <padding><Insets left="40.0" right="40.0" /></padding>
-            <children>
-                <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
-                    <children>
-                        <Label style="-fx-text-fill: white; -fx-font-size: 14px;" text="Bem Vindo" />
-                        <Label fx:id="NomeUsuario" style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 18px;" text="Nome aqui" />
-                    </children>
-                </VBox>
-                <VBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
-                    <children>
-                        <ImageView fitHeight="250.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
-                            <image><Image url="@../../images/logo.png" /></image>
-                        </ImageView>
-                    </children>
-                </VBox>
-                <ImageView fx:id="irParaLogin" fitHeight="35.0" fitWidth="35.0" onMouseClicked="#handleLogout" pickOnBounds="true" preserveRatio="true">
-                    <image><Image url="@../../images/botaoSeta.jpeg" /></image>
-                    <cursor><Cursor fx:constant="HAND" /></cursor>
-                    <HBox.margin><Insets left="20.0" /></HBox.margin>
-                </ImageView>
-            </children>
+            <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                <Label style="-fx-text-fill: white; -fx-font-size: 14px;" text="Bem Vindo" />
+                <Label fx:id="NomeUsuario" style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 18px;" text="Bibliotecário" />
+            </VBox>
+            <ImageView fitHeight="50.0" preserveRatio="true"><Image url="@../../images/logo.png" /></ImageView>
+            <ImageView fitHeight="35.0" onMouseClicked="#handleLogout" style="-fx-cursor: hand;"><Image url="@../../images/botaoSeta.jpeg" /><HBox.margin><Insets left="20.0"/></HBox.margin></ImageView>
         </HBox>
     </top>
 
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: #E9EEF7; -fx-background: #E9EEF7;">
+            <content>
+                <VBox spacing="20.0">
+                    <padding><Insets bottom="100.0" left="40.0" right="40.0" top="30.0" /></padding>
+                    <VBox spacing="5.0">
+                        <Label style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: #1A1A1A;" text="Painel de Devoluções" />
+                        <Label style="-fx-text-fill: #555555; -fx-font-size: 16px;" text="Visualize e registre a devolução de livros emprestados." />
+                    </VBox>
+
+                    <FlowPane fx:id="containerDevolucoes" hgap="30.0" vgap="30.0" alignment="TOP_LEFT" />
+                </VBox>
+            </content>
+        </ScrollPane>
+    </center>
+
     <bottom>
-        <HBox alignment="CENTER" maxHeight="90.0" minHeight="90.0" prefHeight="90.0" style="-fx-background-color: white; -fx-background-radius: 25 25 0 0; -fx-border-color: #D1D1D1 transparent transparent transparent; -fx-border-width: 1 0 0 0;" BorderPane.alignment="CENTER">
-            <children>
-                <VBox alignment="CENTER" HBox.hgrow="ALWAYS"><children><ImageView fitHeight="50.0" fitWidth="100.0" onMouseClicked="#dashboardController" pickOnBounds="true" preserveRatio="true"><image><Image url="@../../images/botaoDashboard.jpeg" /></image><cursor><Cursor fx:constant="HAND" /></cursor></ImageView></children></VBox>
-                <VBox alignment="CENTER" HBox.hgrow="ALWAYS"><children><ImageView fitHeight="50.0" fitWidth="100.0" onMouseClicked="#inventarioController" pickOnBounds="true" preserveRatio="true"><image><Image url="@../../images/botaoInventario.jpeg" /></image><cursor><Cursor fx:constant="HAND" /></cursor></ImageView></children></VBox>
-                <VBox alignment="CENTER" HBox.hgrow="ALWAYS"><children><ImageView fitHeight="50.0" fitWidth="100.0" onMouseClicked="#controleDeReservasController" pickOnBounds="true" preserveRatio="true"><image><Image url="@../../images/botaoFilaDeReserva.jpeg" /></image><cursor><Cursor fx:constant="HAND" /></cursor></ImageView></children></VBox>
-                <VBox alignment="CENTER" HBox.hgrow="ALWAYS"><children><ImageView fitHeight="50.0" fitWidth="100.0" onMouseClicked="#controleDeEmprestimosController" pickOnBounds="true" preserveRatio="true"><image><Image url="@../../images/botaoDevolucoes.jpeg" /></image><cursor><Cursor fx:constant="HAND" /></cursor></ImageView></children></VBox>
-            </children>
+        <HBox alignment="CENTER" prefHeight="90.0" style="-fx-background-color: white; -fx-border-color: #D1D1D1 transparent transparent transparent;">
+            <HBox spacing="60" alignment="CENTER" HBox.hgrow="ALWAYS">
+                <ImageView fitHeight="55.0" onMouseClicked="#dashboardController" style="-fx-cursor: hand;"><Image url="@../../images/botaoDashboard.jpeg" /></ImageView>
+                <ImageView fitHeight="55.0" onMouseClicked="#inventarioController" style="-fx-cursor: hand;"><Image url="@../../images/botaoInventario.jpeg" /></ImageView>
+                <ImageView fitHeight="55.0" onMouseClicked="#controleDeReservasController" style="-fx-cursor: hand;"><Image url="@../../images/botaoFilaDeReserva.jpeg" /></ImageView>
+                <ImageView fitHeight="55.0" onMouseClicked="#controleDeEmprestimosController" style="-fx-cursor: hand;"><Image url="@../../images/botaoDevolucoes.jpeg" /></ImageView>
+            </HBox>
         </HBox>
     </bottom>
-
-    <center>
-        <StackPane BorderPane.alignment="CENTER">
-            <children>
-                <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: #E9EEF7; -fx-background: #E9EEF7;" vbarPolicy="ALWAYS">
-                    <content>
-                        <VBox spacing="20.0" style="-fx-background-color: #E9EEF7;">
-                            <padding><Insets bottom="100.0" left="40.0" right="40.0" top="30.0" /></padding>
-                            <children>
-                                <VBox spacing="5.0">
-                                    <children>
-                                        <Label style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: #1A1A1A;" text="Painel de Devoluções" />
-                                        <Label style="-fx-text-fill: #555555; -fx-font-size: 16px;" text="Gerencie empréstimos ativos" />
-                                    </children>
-                                </VBox>
-
-                                <VBox spacing="30.0" style="-fx-background-color: white; -fx-background-radius: 35;">
-                                    <padding><Insets bottom="40.0" left="40.0" right="40.0" top="40.0" /></padding>
-                                    <children>
-                                        <FlowPane fx:id="containerDevolucoes" alignment="TOP_CENTER" hgap="30.0" vgap="30.0">
-                                            <children>
-
-                                                <!-- CARD 01: EXEMPLO ATRASADO -->
-                                                <VBox prefWidth="530.0" spacing="15.0" style="-fx-background-color: white; -fx-background-radius: 20; -fx-border-color: #E0E0E0; -fx-border-radius: 20; -fx-border-width: 1;">
-                                                    <padding><Insets bottom="25.0" left="25.0" right="25.0" top="25.0" /></padding>
-                                                    <children>
-                                                        <HBox spacing="15.0">
-                                                            <children>
-                                                                <VBox alignment="CENTER" minHeight="60.0" minWidth="60.0" style="-fx-background-color: #FEEEEE; -fx-background-radius: 15;"><children><Label style="-fx-font-size: 24px;" text="📖" /></children></VBox>
-                                                                <VBox spacing="2.0">
-                                                                    <children>
-                                                                        <!-- VARIAVEL: lblTituloLivro -->
-                                                                        <Label fx:id="lblTitulo1" style="-fx-font-weight: bold; -fx-font-size: 18px;" text="Estruturas de Dados e Algoritmos" />
-                                                                        <HBox spacing="8.0" alignment="CENTER_LEFT">
-                                                                            <children>
-                                                                                <Label text="👤" style="-fx-font-size: 12px;" />
-                                                                                <!-- VARIAVEL: lblNomeAluno -->
-                                                                                <Label fx:id="lblAluno1" style="-fx-text-fill: #666666;" text="Ana Silva" />
-                                                                            </children>
-                                                                        </HBox>
-                                                                        <Label fx:id="lblIdExemplar1" style="-fx-text-fill: #888888; -fx-font-size: 14px;" text="# #COMP-001" />
-                                                                    </children>
-                                                                </VBox>
-                                                            </children>
-                                                        </HBox>
-
-                                                        <VBox spacing="8.0" style="-fx-background-color: #F9F9F9; -fx-background-radius: 10; -fx-padding: 15;">
-                                                            <children>
-                                                                <HBox>
-                                                                    <children>
-                                                                        <Label text="Data de empréstimo" style="-fx-text-fill: #777777;" />
-                                                                        <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
-                                                                            <children><Label fx:id="lblDataEmp1" text="07/04/2026" /></children>
-                                                                        </HBox>
-                                                                    </children>
-                                                                </HBox>
-                                                                <HBox>
-                                                                    <children>
-                                                                        <Label text="Data de devolução" style="-fx-text-fill: #777777;" />
-                                                                        <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
-                                                                            <children>
-                                                                                <!-- VARIAVEL: lblStatusData (Fica vermelha no atraso) -->
-                                                                                <Label fx:id="lblDataDev1" style="-fx-text-fill: #E74C3C; -fx-font-weight: bold;" text="14/04/2026 • Atrasado" />
-                                                                            </children>
-                                                                        </HBox>
-                                                                    </children>
-                                                                </HBox>
-                                                                <Label fx:id="lblLogId1" style="-fx-text-fill: #AAAAAA; -fx-font-size: 12px;" text="ID de Log: 1" />
-                                                            </children>
-                                                        </VBox>
-
-                                                        <Button fx:id="btnDevolver1" maxWidth="Infinity" onAction="#handleRegistrarDevolucao" prefHeight="50.0" style="-fx-background-color: #5E2A8E; -fx-background-radius: 15; -fx-text-fill: white; -fx-font-weight: bold;" text="↺  Registrar Devolução">
-                                                            <cursor><Cursor fx:constant="HAND" /></cursor>
-                                                        </Button>
-                                                    </children>
-                                                </VBox>
-
-                                                <!-- CARD 02: EXEMPLO NO PRAZO -->
-                                                <VBox prefWidth="530.0" spacing="15.0" style="-fx-background-color: white; -fx-background-radius: 20; -fx-border-color: #E0E0E0; -fx-border-radius: 20; -fx-border-width: 1;">
-                                                    <padding><Insets bottom="25.0" left="25.0" right="25.0" top="25.0" /></padding>
-                                                    <children>
-                                                        <HBox spacing="15.0">
-                                                            <children>
-                                                                <VBox alignment="CENTER" minHeight="60.0" minWidth="60.0" style="-fx-background-color: #F3E5F5; -fx-background-radius: 15;"><children><Label style="-fx-font-size: 24px;" text="📖" /></children></VBox>
-                                                                <VBox spacing="2.0">
-                                                                    <children>
-                                                                        <Label fx:id="lblTitulo2" style="-fx-font-weight: bold; -fx-font-size: 18px;" text="Código Limpo" />
-                                                                        <HBox spacing="8.0" alignment="CENTER_LEFT">
-                                                                            <children>
-                                                                                <Label text="👤" style="-fx-font-size: 12px;" />
-                                                                                <Label fx:id="lblAluno2" style="-fx-text-fill: #666666;" text="Marcos Oliveira" />
-                                                                            </children>
-                                                                        </HBox>
-                                                                        <Label fx:id="lblIdExemplar2" style="-fx-text-fill: #888888; -fx-font-size: 14px;" text="# #COMP-002" />
-                                                                    </children>
-                                                                </VBox>
-                                                            </children>
-                                                        </HBox>
-
-                                                        <VBox spacing="8.0" style="-fx-background-color: #F9F9F9; -fx-background-radius: 10; -fx-padding: 15;">
-                                                            <children>
-                                                                <HBox>
-                                                                    <children>
-                                                                        <Label text="Data de empréstimo" style="-fx-text-fill: #777777;" />
-                                                                        <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
-                                                                            <children><Label fx:id="lblDataEmp2" text="01/05/2026" /></children>
-                                                                        </HBox>
-                                                                    </children>
-                                                                </HBox>
-                                                                <HBox>
-                                                                    <children>
-                                                                        <Label text="Data de devolução" style="-fx-text-fill: #777777;" />
-                                                                        <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
-                                                                            <children>
-                                                                                <!-- VARIAVEL: lblStatusData (Cor normal se estiver no prazo) -->
-                                                                                <Label fx:id="lblDataDev2" style="-fx-text-fill: #555555;" text="15/05/2026" />
-                                                                            </children>
-                                                                        </HBox>
-                                                                    </children>
-                                                                </HBox>
-                                                                <Label fx:id="lblLogId2" style="-fx-text-fill: #AAAAAA; -fx-font-size: 12px;" text="ID de Log: 2" />
-                                                            </children>
-                                                        </VBox>
-
-                                                        <Button fx:id="btnDevolver2" maxWidth="Infinity" onAction="#handleRegistrarDevolucao" prefHeight="50.0" style="-fx-background-color: #5E2A8E; -fx-background-radius: 15; -fx-text-fill: white; -fx-font-weight: bold;" text="↺  Registrar Devolução">
-                                                            <cursor><Cursor fx:constant="HAND" /></cursor>
-                                                        </Button>
-                                                    </children>
-                                                </VBox>
-
-                                            </children>
-                                        </FlowPane>
-                                    </children>
-                                </VBox>
-                            </children>
-                        </VBox>
-                    </content>
-                </ScrollPane>
-            </children>
-        </StackPane>
-    </center>
 </BorderPane>
