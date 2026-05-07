@@ -6,156 +6,45 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.FlowPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #E9EEF7;" xmlns="http://javafx.com/javafx/25.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifba.controller.features.bibliotecario.ControleDeReservasController">
+<BorderPane prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #E9EEF7;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifba.controller.features.bibliotecario.ControleDeReservasController">
     <top>
-        <HBox alignment="CENTER_LEFT" maxHeight="80.0" minHeight="80.0" prefHeight="80.0" style="-fx-background-color: #1A3783;" BorderPane.alignment="CENTER">
+        <HBox alignment="CENTER_LEFT" prefHeight="80.0" style="-fx-background-color: #1A3783;">
             <padding><Insets left="40.0" right="40.0" /></padding>
-            <children>
-                <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
-                    <children>
-                        <Label style="-fx-text-fill: white; -fx-font-size: 14px;" text="Bem Vindo" />
-                        <Label fx:id="NomeUsuario" style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 18px;" text="Nome aqui" />
-                    </children>
-                </VBox>
-                <VBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
-                    <children>
-                        <ImageView fitHeight="250.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
-                            <image><Image url="@../../images/logo.png" /></image>
-                        </ImageView>
-                    </children>
-                </VBox>
-                <ImageView fx:id="irParaLogin" fitHeight="35.0" fitWidth="35.0" onMouseClicked="#handleLogout" pickOnBounds="true" preserveRatio="true">
-                    <image><Image url="@../../images/botaoSeta.jpeg" /></image>
-                    <cursor><Cursor fx:constant="HAND" /></cursor>
-                    <HBox.margin><Insets left="20.0" /></HBox.margin>
-                </ImageView>
-            </children>
+            <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                <Label style="-fx-text-fill: white; -fx-font-size: 14px;" text="Painel de Reservas" />
+                <Label fx:id="NomeUsuario" style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 18px;" text="Carregando..." />
+            </VBox>
+            <ImageView fitHeight="50.0" preserveRatio="true"><Image url="@../../images/logo.png" /></ImageView>
+            <ImageView fitHeight="35.0" onMouseClicked="#handleLogout" style="-fx-cursor: hand;"><Image url="@../../images/botaoSeta.jpeg" /><HBox.margin><Insets left="20.0"/></HBox.margin></ImageView>
         </HBox>
     </top>
 
-    <bottom>
-        <HBox alignment="CENTER" maxHeight="90.0" minHeight="90.0" prefHeight="90.0" style="-fx-background-color: white; -fx-background-radius: 25 25 0 0; -fx-border-color: #D1D1D1 transparent transparent transparent; -fx-border-width: 1 0 0 0;" BorderPane.alignment="CENTER">
-            <children>
-                <VBox alignment="CENTER" HBox.hgrow="ALWAYS"><children><ImageView fitHeight="55.0" onMouseClicked="#dashboardController" pickOnBounds="true" preserveRatio="true"><image><Image url="@../../images/botaoDashboard.jpeg" /></image><cursor><Cursor fx:constant="HAND" /></cursor></ImageView></children></VBox>
-                <VBox alignment="CENTER" HBox.hgrow="ALWAYS"><children><ImageView fitHeight="55.0" onMouseClicked="#inventarioController" pickOnBounds="true" preserveRatio="true"><image><Image url="@../../images/botaoInventario.jpeg" /></image><cursor><Cursor fx:constant="HAND" /></cursor></ImageView></children></VBox>
-                <VBox alignment="CENTER" HBox.hgrow="ALWAYS"><children><ImageView fitHeight="55.0" onMouseClicked="#controleDeReservasController" pickOnBounds="true" preserveRatio="true"><image><Image url="@../../images/botaoFilaDeReserva.jpeg" /></image><cursor><Cursor fx:constant="HAND" /></cursor></ImageView></children></VBox>
-                <VBox alignment="CENTER" HBox.hgrow="ALWAYS"><children><ImageView fitHeight="55.0" onMouseClicked="#controleDeEmprestimosController" pickOnBounds="true" preserveRatio="true"><image><Image url="@../../images/botaoDevolucoes.jpeg" /></image><cursor><Cursor fx:constant="HAND" /></cursor></ImageView></children></VBox>
-            </children>
-        </HBox>
-    </bottom>
-
     <center>
-        <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: #E9EEF7; -fx-background: #E9EEF7;" vbarPolicy="ALWAYS" BorderPane.alignment="CENTER">
+        <ScrollPane fitToWidth="true" style="-fx-background-color: #E9EEF7; -fx-background: #E9EEF7;">
             <content>
-                <VBox spacing="25.0" style="-fx-background-color: #E9EEF7;">
+                <VBox spacing="25.0">
                     <padding><Insets bottom="60.0" left="50.0" right="50.0" top="30.0" /></padding>
-                    <children>
-                        <VBox spacing="5.0">
-                            <children>
-                                <Label style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: #1A1A1A;" text="Fila de Espera" />
-                                <Label style="-fx-text-fill: #555555; -fx-font-size: 16px;" text="Gestão de prioridade por obra" />
-                            </children>
-                        </VBox>
+                    <VBox spacing="5.0">
+                        <Label style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: #1A1A1A;" text="Fila de Espera por Obra" />
+                        <Label style="-fx-text-fill: #555555; -fx-font-size: 16px;" text="Gerenciamento automático de prioridades e ordem de reserva." />
+                    </VBox>
 
-                        <FlowPane fx:id="containerFilas" alignment="TOP_CENTER" hgap="30.0" vgap="30.0">
-                            <children>
-
-                                <!-- LIVRO 1: 5 PESSOAS -->
-                                <VBox prefWidth="560.0" spacing="20.0" style="-fx-background-color: white; -fx-background-radius: 25; -fx-padding: 30; -fx-border-color: #E0E0E0; -fx-border-radius: 25;">
-                                    <children>
-                                        <Label fx:id="lblNomeLivro1" style="-fx-font-size: 22px; -fx-font-weight: bold;" text="Código Limpo" />
-                                        <ScrollPane hbarPolicy="NEVER" minHeight="280.0" prefHeight="280.0" style="-fx-background-color: transparent; -fx-background: white; -fx-border-color: transparent;" vbarPolicy="AS_NEEDED">
-                                            <content>
-                                                <VBox fx:id="vboxFila1" spacing="12.0" style="-fx-background-color: white;">
-                                                    <children>
-                                                        <AnchorPane prefHeight="85.0" prefWidth="475.0" style="-fx-background-color: #F8F9FB; -fx-background-radius: 15;">
-                                                            <children>
-                                                                <VBox layoutX="15.0" layoutY="18.0" spacing="3.0">
-                                                                    <children>
-                                                                        <HBox alignment="CENTER_LEFT" spacing="10.0">
-                                                                            <children><Label fx:id="lblNomeProf1" style="-fx-font-weight: bold; -fx-font-size: 16px;" text="Prof. Roberto Almeida" /><Label fx:id="tagPrioridade1" style="-fx-background-color: #FFF9C4; -fx-text-fill: #FBC02D; -fx-padding: 2 8; -fx-background-radius: 5; -fx-font-size: 10px; -fx-font-weight: bold;" text="PRIORIDADE" /></children>
-                                                                        </HBox>
-                                                                        <Label style="-fx-text-fill: #888888; -fx-font-size: 13px;" text="Código Limpo" />
-                                                                    </children>
-                                                                </VBox>
-                                                                <Label fx:id="lblPosProf1" alignment="CENTER" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: white; -fx-background-radius: 50; -fx-font-weight: bold; -fx-border-color: #DDD;" text="1º" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="22.0" />
-                                                            </children>
-                                                        </AnchorPane>
-                                                        <AnchorPane prefHeight="85.0" prefWidth="475.0" style="-fx-background-color: #F8F9FB; -fx-background-radius: 15;"><children><VBox layoutX="15.0" layoutY="18.0"><children><Label fx:id="u1_2" style="-fx-font-weight: bold; -fx-font-size: 16px;" text="Carlos Santos" /><Label style="-fx-text-fill: #888888; -fx-font-size: 13px;" text="Código Limpo" /></children></VBox><Label fx:id="p1_2" alignment="CENTER" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: white; -fx-background-radius: 50; -fx-font-weight: bold; -fx-border-color: #DDD;" text="2º" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="22.0" /></children></AnchorPane>
-                                                        <AnchorPane prefHeight="85.0" prefWidth="475.0" style="-fx-background-color: #F8F9FB; -fx-background-radius: 15;"><children><VBox layoutX="15.0" layoutY="18.0"><children><Label fx:id="u1_3" style="-fx-font-weight: bold; -fx-font-size: 16px;" text="Ana Oliveira" /><Label style="-fx-text-fill: #888888; -fx-font-size: 13px;" text="Código Limpo" /></children></VBox><Label fx:id="p1_3" alignment="CENTER" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: white; -fx-background-radius: 50; -fx-font-weight: bold; -fx-border-color: #DDD;" text="3º" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="22.0" /></children></AnchorPane>
-                                                        <AnchorPane prefHeight="85.0" prefWidth="475.0" style="-fx-background-color: #F8F9FB; -fx-background-radius: 15;"><children><VBox layoutX="15.0" layoutY="18.0"><children><Label fx:id="u1_4" style="-fx-font-weight: bold; -fx-font-size: 16px;" text="Beatriz Lima" /><Label style="-fx-text-fill: #888888; -fx-font-size: 13px;" text="Código Limpo" /></children></VBox><Label fx:id="p1_4" alignment="CENTER" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: white; -fx-background-radius: 50; -fx-font-weight: bold; -fx-border-color: #DDD;" text="4º" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="22.0" /></children></AnchorPane>
-                                                        <AnchorPane prefHeight="85.0" prefWidth="475.0" style="-fx-background-color: #F8F9FB; -fx-background-radius: 15;"><children><VBox layoutX="15.0" layoutY="18.0"><children><Label fx:id="u1_5" style="-fx-font-weight: bold; -fx-font-size: 16px;" text="Ricardo Silva" /><Label style="-fx-text-fill: #888888; -fx-font-size: 13px;" text="Código Limpo" /></children></VBox><Label fx:id="p1_5" alignment="CENTER" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: white; -fx-background-radius: 50; -fx-font-weight: bold; -fx-border-color: #DDD;" text="5º" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="22.0" /></children></AnchorPane>
-                                                    </children>
-                                                </VBox>
-                                            </content>
-                                        </ScrollPane>
-                                    </children>
-                                </VBox>
-
-                                <!-- LIVRO 2: 8 PESSOAS (TESTE DE SCROLL) -->
-                                <VBox prefWidth="560.0" spacing="20.0" style="-fx-background-color: white; -fx-background-radius: 25; -fx-padding: 30; -fx-border-color: #E0E0E0; -fx-border-radius: 25;">
-                                    <children>
-                                        <Label fx:id="lblNomeLivro2" style="-fx-font-size: 22px; -fx-font-weight: bold;" text="Estruturas de Dados" />
-                                        <ScrollPane hbarPolicy="NEVER" minHeight="280.0" prefHeight="280.0" style="-fx-background-color: transparent; -fx-background: white; -fx-border-color: transparent;" vbarPolicy="AS_NEEDED">
-                                            <content>
-                                                <VBox fx:id="vboxFila2" spacing="12.0" style="-fx-background-color: white;">
-                                                    <children>
-                                                        <AnchorPane prefHeight="85.0" prefWidth="475.0" style="-fx-background-color: #F8F9FB; -fx-background-radius: 15;"><children><VBox layoutX="15.0" layoutY="18.0" spacing="3.0"><children><HBox spacing="10.0"><children><Label fx:id="lblProf2" style="-fx-font-weight: bold; -fx-font-size: 16px;" text="Prof. Thomas Cormen" /><Label style="-fx-background-color: #FFF9C4; -fx-text-fill: #FBC02D; -fx-padding: 2 8; -fx-background-radius: 5; -fx-font-size: 10px; -fx-font-weight: bold;" text="PRIORIDADE" /></children></HBox><Label style="-fx-text-fill: #888888; -fx-font-size: 13px;" text="Estruturas de Dados" /></children></VBox><Label alignment="CENTER" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: white; -fx-background-radius: 50; -fx-font-weight: bold; -fx-border-color: #DDD;" text="1º" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="22.0" /></children></AnchorPane>
-                                                        <AnchorPane prefHeight="85.0" prefWidth="475.0" style="-fx-background-color: #F8F9FB; -fx-background-radius: 15;"><children><VBox layoutX="15.0" layoutY="18.0"><children><Label style="-fx-font-weight: bold; -fx-font-size: 16px;" text="Marcos Souza" /><Label style="-fx-text-fill: #888888; -fx-font-size: 13px;" text="Estruturas de Dados" /></children></VBox><Label alignment="CENTER" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: white; -fx-border-color: #DDD; -fx-background-radius: 50;" text="2º" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="22.0" /></children></AnchorPane>
-                                                        <AnchorPane prefHeight="85.0" prefWidth="475.0" style="-fx-background-color: #F8F9FB; -fx-background-radius: 15;"><children><VBox layoutX="15.0" layoutY="18.0"><children><Label style="-fx-font-weight: bold; -fx-font-size: 16px;" text="Julia Lima" /></children></VBox><Label alignment="CENTER" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: white; -fx-border-color: #DDD; -fx-background-radius: 50;" text="3º" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="22.0" /></children></AnchorPane>
-                                                        <AnchorPane prefHeight="85.0" prefWidth="475.0" style="-fx-background-color: #F8F9FB; -fx-background-radius: 15;"><children><VBox layoutX="15.0" layoutY="18.0"><children><Label style="-fx-font-weight: bold; -fx-font-size: 16px;" text="Felipe Guedes" /></children></VBox><Label alignment="CENTER" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: white; -fx-border-color: #DDD; -fx-background-radius: 50;" text="4º" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="22.0" /></children></AnchorPane>
-                                                        <AnchorPane prefHeight="85.0" prefWidth="475.0" style="-fx-background-color: #F8F9FB; -fx-background-radius: 15;"><children><VBox layoutX="15.0" layoutY="18.0"><children><Label style="-fx-font-weight: bold; -fx-font-size: 16px;" text="Mariana Costa" /></children></VBox><Label alignment="CENTER" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: white; -fx-border-color: #DDD; -fx-background-radius: 50;" text="5º" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="22.0" /></children></AnchorPane>
-                                                        <AnchorPane prefHeight="85.0" prefWidth="475.0" style="-fx-background-color: #F8F9FB; -fx-background-radius: 15;"><children><VBox layoutX="15.0" layoutY="18.0"><children><Label style="-fx-font-weight: bold; -fx-font-size: 16px;" text="Enzo Viana" /></children></VBox><Label alignment="CENTER" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: white; -fx-border-color: #DDD; -fx-background-radius: 50;" text="6º" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="22.0" /></children></AnchorPane>
-                                                        <AnchorPane prefHeight="85.0" prefWidth="475.0" style="-fx-background-color: #F8F9FB; -fx-background-radius: 15;"><children><VBox layoutX="15.0" layoutY="18.0"><children><Label style="-fx-font-weight: bold; -fx-font-size: 16px;" text="Larissa Mendes" /></children></VBox><Label alignment="CENTER" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: white; -fx-border-color: #DDD; -fx-background-radius: 50;" text="7º" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="22.0" /></children></AnchorPane>
-                                                        <AnchorPane prefHeight="85.0" prefWidth="475.0" style="-fx-background-color: #F8F9FB; -fx-background-radius: 15;"><children><VBox layoutX="15.0" layoutY="18.0"><children><Label style="-fx-font-weight: bold; -fx-font-size: 16px;" text="Gabriel Brito" /></children></VBox><Label alignment="CENTER" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: white; -fx-border-color: #DDD; -fx-background-radius: 50;" text="8º" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="22.0" /></children></AnchorPane>
-                                                    </children>
-                                                </VBox>
-                                            </content>
-                                        </ScrollPane>
-                                    </children>
-                                </VBox>
-
-                                <!-- LIVRO 3: 2 PESSOAS -->
-                                <VBox prefWidth="560.0" spacing="20.0" style="-fx-background-color: white; -fx-background-radius: 25; -fx-padding: 30; -fx-border-color: #E0E0E0; -fx-border-radius: 25;">
-                                    <children>
-                                        <Label fx:id="lblNomeLivro3" style="-fx-font-size: 22px; -fx-font-weight: bold;" text="O Cortiço" />
-                                        <ScrollPane hbarPolicy="NEVER" minHeight="280.0" prefHeight="280.0" style="-fx-background-color: transparent; -fx-background: white; -fx-border-color: transparent;" vbarPolicy="AS_NEEDED">
-                                            <content>
-                                                <VBox fx:id="vboxFila3" spacing="12.0" style="-fx-background-color: white;">
-                                                    <children>
-                                                        <AnchorPane prefHeight="85.0" prefWidth="475.0" style="-fx-background-color: #F8F9FB; -fx-background-radius: 15;"><children><VBox layoutX="15.0" layoutY="18.0" spacing="3.0"><children><Label fx:id="u3_1" style="-fx-font-weight: bold; -fx-font-size: 16px;" text="Ricardo Silva" /><Label style="-fx-text-fill: #888888; -fx-font-size: 13px;" text="O Cortiço" /></children></VBox><Label alignment="CENTER" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: white; -fx-border-color: #DDD; -fx-background-radius: 50;" text="1º" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="22.0" /></children></AnchorPane>
-                                                        <AnchorPane prefHeight="85.0" prefWidth="475.0" style="-fx-background-color: #F8F9FB; -fx-background-radius: 15;"><children><VBox layoutX="15.0" layoutY="18.0" spacing="3.0"><children><Label fx:id="u3_2" style="-fx-font-weight: bold; -fx-font-size: 16px;" text="Lívia Torres" /><Label style="-fx-text-fill: #888888; -fx-font-size: 13px;" text="O Cortiço" /></children></VBox><Label alignment="CENTER" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: white; -fx-border-color: #DDD; -fx-background-radius: 50;" text="2º" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="22.0" /></children></AnchorPane>
-                                                    </children>
-                                                </VBox>
-                                            </content>
-                                        </ScrollPane>
-                                    </children>
-                                </VBox>
-
-                                <!-- LIVRO 4: VAZIA -->
-                                <VBox prefWidth="560.0" spacing="20.0" style="-fx-background-color: white; -fx-background-radius: 25; -fx-padding: 30; -fx-border-color: #E0E0E0; -fx-border-radius: 25;">
-                                    <children>
-                                        <Label fx:id="lblNomeLivro4" style="-fx-font-size: 22px; -fx-font-weight: bold;" text="Dom Casmurro" />
-                                        <VBox fx:id="vboxFila4" alignment="CENTER" minHeight="280.0" prefHeight="280.0">
-                                            <children>
-                                                <Label style="-fx-text-fill: #AAAAAA; -fx-font-style: italic;" text="Nenhuma reserva pendente" />
-                                            </children>
-                                        </VBox>
-                                    </children>
-                                </VBox>
-
-                            </children>
-                        </FlowPane>
-                    </children>
+                    <FlowPane fx:id="containerFilas" hgap="30.0" vgap="30.0" alignment="TOP_LEFT" />
                 </VBox>
             </content>
         </ScrollPane>
     </center>
+
+    <bottom>
+        <HBox alignment="CENTER" prefHeight="90.0" style="-fx-background-color: white; -fx-border-color: #D1D1D1 transparent transparent transparent;">
+            <HBox spacing="60" alignment="CENTER" HBox.hgrow="ALWAYS">
+                <ImageView fitHeight="55.0" onMouseClicked="#dashboardController" style="-fx-cursor: hand;"><Image url="@../../images/botaoDashboard.jpeg" /></ImageView>
+                <ImageView fitHeight="55.0" onMouseClicked="#inventarioController" style="-fx-cursor: hand;"><Image url="@../../images/botaoInventario.jpeg" /></ImageView>
+                <ImageView fitHeight="55.0" onMouseClicked="#controleDeReservasController" style="-fx-cursor: hand;"><Image url="@../../images/botaoFilaDeReserva.jpeg" /></ImageView>
+                <ImageView fitHeight="55.0" onMouseClicked="#controleDeEmprestimosController" style="-fx-cursor: hand;"><Image url="@../../images/botaoDevolucoes.jpeg" /></ImageView>
+            </HBox>
+        </HBox>
+    </bottom>
 </BorderPane>
