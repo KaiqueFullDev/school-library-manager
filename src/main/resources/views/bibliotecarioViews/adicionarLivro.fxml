@@ -131,8 +131,8 @@
                                         </VBox>
                                         <VBox spacing="8.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                             <children>
-                                                <Label style="-fx-font-weight: bold; -fx-font-size: 16px;" text="ID do exemplar*" />
-                                                <TextField fx:id="txtIdExemplar" prefHeight="50.0" promptText="Ex: #COMP-001" style="-fx-background-color: #E9EEF7; -fx-background-radius: 20; -fx-padding: 0 15;" />
+                                                <Label style="-fx-font-weight: bold; -fx-font-size: 16px;" text="Quantidade" />
+                                                <TextField fx:id="txtQuantidade" prefHeight="50.0" style="-fx-background-color: #E9EEF7; -fx-background-radius: 20; -fx-padding: 0 15;" />
                                             </children>
                                         </VBox>
                                         <VBox spacing="8.0" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.rowSpan="2">

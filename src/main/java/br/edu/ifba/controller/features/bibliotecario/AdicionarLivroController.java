@@ -48,9 +48,6 @@ public class AdicionarLivroController implements Initializable {
     private TextField txtAno;
 
     @FXML
-    private TextField txtIdExemplar;
-
-    @FXML
     private TextField txtQuantidade;
 
     @FXML
@@ -80,12 +77,11 @@ public class AdicionarLivroController implements Initializable {
         String categoria = txtCategoria != null && txtCategoria.getText() != null ? txtCategoria.getText().trim() : "";
         String autor = txtAutor.getText() != null ? txtAutor.getText().trim() : "";
         String anoTexto = txtAno.getText() != null ? txtAno.getText().trim() : "";
-        String idExemplar = txtIdExemplar.getText() != null ? txtIdExemplar.getText().trim() : "";
         String quantidadeTexto = txtQuantidade != null && txtQuantidade.getText() != null ? txtQuantidade.getText().trim() : "";
         String descricao = txtDescricao != null && txtDescricao.getText() != null ? txtDescricao.getText().trim() : "";
 
         if (titulo.isBlank() || isbn.isBlank() || categoria.isBlank() || autor.isBlank()
-                || anoTexto.isBlank() || quantidadeTexto.isBlank() || descricao.isBlank() || idExemplar.isBlank()) {
+                || anoTexto.isBlank() || descricao.isBlank()) {
             Tools.enviarAlerta("Preencha todos os campos obrigatórios.");
             return;
         }
@@ -123,7 +119,7 @@ public class AdicionarLivroController implements Initializable {
             bibliotecarioService.adicionarLivro(livro);
         }
 
-        Tools.enviarAlerta("Livro adicionado com sucesso. Referência informada: " + idExemplar);
+
         Tools.navegarPara(event, "/views/bibliotecarioViews/inventario.fxml");
     }
 

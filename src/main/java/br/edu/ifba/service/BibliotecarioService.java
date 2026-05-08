@@ -323,6 +323,7 @@ public class BibliotecarioService {
 
         LivroDAOLista novaListaDeExemplares= new LivroDAOLista();
         novaListaDeExemplares.salvar(livro);
+        System.out.println("Livro adicionado");
         b.getTitulos().salvar(new Titulo(novaListaDeExemplares, new EmprestimoDAOLista(), new ReservaDAOFilaDePrioridade()));
     }
 
