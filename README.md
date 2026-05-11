@@ -54,7 +54,7 @@ Repositório destinado ao desenvolvimento do sistema de gerenciamento de bibliot
 *Lógica das telas e integração:*
 - **Kaique**: `AuthController`, Controle da tela de Login e Cadastro 🟢 (Concluído)
 - **Pedro, e Emanuel**: `UsuarioController` 🟢 (Concluído)
-- **Kaique, e Nikolas**: `BibliotecarioController` 🟡 (Em Desenvolvimento)
+- **Emanuel, e Nikolas**: `BibliotecarioController` 🟢 (Concluído)
   
 ---
 
