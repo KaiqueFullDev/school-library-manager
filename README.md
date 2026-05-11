@@ -37,7 +37,7 @@ Repositório destinado ao desenvolvimento do sistema de gerenciamento de bibliot
 *Lógica principal do sistema:*
 - **Charles**: `AuthService`, Login e Segurança.🟢 (Concluído))
 - **Charles**: `UsuarioService`, Gestão de usuários.🟢 (Concluído)
-- **Charles**: `BibliotecarioService`, Operações administrativas.🔵 (Em Revisão)
+- **Charles**: `BibliotecarioService`, Operações administrativas.🟢 (Concluído)
 
 ### 📂 Models (Entidades)
 *Entidades base*
