@@ -2,8 +2,8 @@ package br.edu.ifba.repository.dao;
 
 import br.edu.ifba.models.Emprestimo;
 import br.edu.ifba.models.Usuario;
-import br.edu.ifba.util.ListaDinamica;
-import br.edu.ifba.util.Listavel;
+import br.edu.ifba.ed.ListaDinamica;
+import br.edu.ifba.ed.Listavel;
 
 public class EmprestimoDAOLista {
     private Listavel<Emprestimo> listaEmprestimos;

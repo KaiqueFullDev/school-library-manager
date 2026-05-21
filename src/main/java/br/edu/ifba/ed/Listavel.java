@@ -1,4 +1,4 @@
-package br.edu.ifba.util;
+package br.edu.ifba.ed;
 
 public interface Listavel<T> {
 

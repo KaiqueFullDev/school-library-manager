@@ -1,7 +1,7 @@
 package br.edu.ifba.repository.dao;
 
 import br.edu.ifba.models.Reserva;
-import br.edu.ifba.util.ReservaComparator;
+import br.edu.ifba.ed.ReservaComparator;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
