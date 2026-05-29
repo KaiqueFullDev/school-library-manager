@@ -11,18 +11,36 @@
 <BorderPane fx:id="mainContainer" prefHeight="750.0" prefWidth="1150.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifba.controller.features.bibliotecario.DashboardController">
 
   <top>
-    <HBox alignment="CENTER_LEFT" prefHeight="80.0" style="-fx-background-color: #1A3783;" spacing="20">
-      <padding><Insets left="30.0" right="30.0"/></padding>
-      <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
-        <Label style="-fx-text-fill: white; -fx-font-size: 12px;" text="Bem-vindo ao Painel Administrativo" />
-        <Label fx:id="userLabel" style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 20px;" text="Carregando..." />
-      </VBox>
-      <ImageView fitHeight="45.0" preserveRatio="true">
-        <Image url="@../../images/logo.png" />
-      </ImageView>
-      <ImageView fitHeight="30.0" fitWidth="30.0" onMouseClicked="#handleLogout" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
-        <Image url="@../../images/botaoSeta.jpeg" />
-      </ImageView>
+    <HBox alignment="CENTER_LEFT" maxHeight="80.0" minHeight="80.0" prefHeight="80.0" style="-fx-background-color: #1A3783;" BorderPane.alignment="CENTER">
+      <padding>
+        <Insets left="40.0" right="40.0" />
+      </padding>
+      <children>
+        <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+          <children>
+            <Label style="-fx-text-fill: white; -fx-font-size: 14px;" text="Bem Vindo" />
+            <Label fx:id="userLabel" style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 18px;" text="Nome aqui" />
+          </children>
+        </VBox>
+        <VBox alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />
+        <VBox prefHeight="200.0" prefWidth="100.0">
+          <children>
+            <ImageView fitHeight="250.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
+              <image>
+                <Image url="@../../images/logo.png" />
+              </image>
+            </ImageView>
+          </children>
+        </VBox>
+        <ImageView fx:id="irParaLogin" fitHeight="42.0" fitWidth="42.0" onMouseClicked="#handleLogout" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@../../images/botaoSeta.jpeg" />
+          </image>
+          <cursor>
+            <Cursor fx:constant="HAND" />
+          </cursor>
+        </ImageView>
+      </children>
     </HBox>
   </top>
 

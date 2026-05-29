@@ -136,10 +136,10 @@ public class ControleDeEmprestimosController implements Initializable {
 
     // --- Navegação ---
     @FXML private void handleLogout(MouseEvent event) { Sessao.encerrarSessao(); navegarPara("/views/AuthViews/login.fxml", event); }
-    @FXML private void dashboardController(MouseEvent event) { navegarPara("/views/bibliotecarioViews/dashboard.fxml", event); }
-    @FXML private void inventarioController(MouseEvent event) { navegarPara("/views/bibliotecarioViews/inventario.fxml", event); }
-    @FXML private void controleDeReservasController(MouseEvent event) { navegarPara("/views/bibliotecarioViews/controleDeReservas.fxml", event); }
-    @FXML private void controleDeEmprestimosController(MouseEvent event) { renderizarEmprestimos(); }
+    @FXML private void onNavDashboard(MouseEvent event) { navegarPara("/views/bibliotecarioViews/dashboard.fxml", event); }
+    @FXML private void onNavInventario(MouseEvent event) { navegarPara("/views/bibliotecarioViews/inventario.fxml", event); }
+    @FXML private void onNavReservas(MouseEvent event) { navegarPara("/views/bibliotecarioViews/controleDeReservas.fxml", event); }
+    @FXML private void onNavEmprestimos(MouseEvent event) { renderizarEmprestimos(); }
 
     private void navegarPara(String fxmlPath, MouseEvent event) {
         try {
