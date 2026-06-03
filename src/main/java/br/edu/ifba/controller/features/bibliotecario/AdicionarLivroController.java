@@ -21,6 +21,7 @@ import javafx.stage.Stage;
 import java.time.LocalDate;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 
@@ -45,7 +46,7 @@ public class AdicionarLivroController implements Initializable {
     private TextField txtAutor;
 
     @FXML
-    private TextField txtAno;
+    private TextField txtDataDePublicacao;
 
     @FXML
     private TextField txtQuantidade;
@@ -76,36 +77,44 @@ public class AdicionarLivroController implements Initializable {
         String isbn = txtIsbn.getText() != null ? txtIsbn.getText().trim() : "";
         String categoria = txtCategoria != null && txtCategoria.getText() != null ? txtCategoria.getText().trim() : "";
         String autor = txtAutor.getText() != null ? txtAutor.getText().trim() : "";
-        String anoTexto = txtAno.getText() != null ? txtAno.getText().trim() : "";
         String quantidadeTexto = txtQuantidade != null && txtQuantidade.getText() != null ? txtQuantidade.getText().trim() : "";
         String descricao = txtDescricao != null && txtDescricao.getText() != null ? txtDescricao.getText().trim() : "";
 
+        String textoData = (txtDataDePublicacao.getText() != null) ? txtDataDePublicacao.getText().trim() : "";
+        LocalDate dataDePublicacao = null;
+
+        if (!textoData.isEmpty()) {
+            try {
+                // 1. Define o formato esperado de digitação (Ex: 03/06/2026)
+                java.time.format.DateTimeFormatter formatador = java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+                // 2. Faz a conversão direta para LocalDate
+                dataDePublicacao = LocalDate.parse(textoData, formatador);
+
+                System.out.println("Data convertida com sucesso: " + dataDePublicacao);
+            } catch (java.time.format.DateTimeParseException e) {
+                System.err.println("Erro: A data digitada é inválida! Use o padrão dd/MM/yyyy");
+                Tools.enviarAlerta("Erro: A data digitada é inválida! Use o padrão dd/MM/yyyy");
+                return;
+            }
+        }
+
         if (titulo.isBlank() || isbn.isBlank() || categoria.isBlank() || autor.isBlank()
-                || anoTexto.isBlank() || descricao.isBlank()) {
+                || descricao.isBlank()) {
             Tools.enviarAlerta("Preencha todos os campos obrigatórios.");
             return;
         }
 
-        final int ano;
         final int quantidade;
         try {
-            ano = Integer.parseInt(anoTexto);
             quantidade = Integer.parseInt(quantidadeTexto);
         } catch (NumberFormatException e) {
-            Tools.enviarAlerta("Ano e quantidade precisam ser números válidos.");
+            Tools.enviarAlerta("Quantidade precisa ser um número válidos.");
             return;
         }
 
         if (quantidade <= 0) {
             Tools.enviarAlerta("A quantidade deve ser maior que zero.");
-            return;
-        }
-
-        LocalDate dataPublicacao;
-        try {
-            dataPublicacao = LocalDate.of(ano, 1, 1);
-        } catch (Exception e) {
-            Tools.enviarAlerta("Ano de publicação inválido.");
             return;
         }
 
@@ -115,8 +124,14 @@ public class AdicionarLivroController implements Initializable {
         }
 
         for (int i = 0; i < quantidade; i++) {
-            Livro livro = new Livro(titulo, autor, isbn, categoria, descricao, dataPublicacao);
+            Livro livro = new Livro(titulo, autor, isbn, categoria, descricao, dataDePublicacao);
             bibliotecarioService.adicionarLivro(livro);
+            /*Tools.enviarAlerta(" Dados do livro:\n" +
+                    "nome: "+livro.getNome()+"\n"+
+                    "dataDePublicação: "+livro.getDataPublicacao()+"\n"+
+                    "Descricao: "+livro.getDescricao()+"\n"+
+                    "genero: "+livro.getGenero()+"\n"+
+                    "Autor: "+livro.getAutor());*/
         }
 
 

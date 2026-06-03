@@ -291,40 +291,50 @@ public class BibliotecarioService {
     // GESTÃO DO ACERVO
     // =========================================================================
 
-    /**
-     * Adiciona um novo exemplar (livro físico) ao acervo.
-     * Como Titulo é sempre gerado a partir do acervo em getTitulosAtualizados(),
-     * basta salvar o livro no acervo — o Título será recriado automaticamente.
-     *
-     * ALTERAÇÃO COMPLETA: o método original usava listaDeLivros.adicionar(),
-     * listaDeTitulos.buscarTitulo(), listaDeTitulos.adicionar(), e o construtor
-     * Titulo(nome, autor, data, isbn, genero, descricao) — todos inexistentes.
-     * Titulo só pode ser construído a partir de uma LivroDAOLista (conforme o
-     * único construtor disponível: Titulo(LivroDAOLista)). Além disso,
-     * getTitulosAtualizados() reconstrói toda a lista de títulos automaticamente
-     * ao ser chamado, então não é necessário manipular Titulo manualmente aqui.
-     *
-     * @param livro o exemplar a ser adicionado
-     */
-    public void adicionarLivro(Livro livro) {
-        if (livro == null) {
+    public void adicionarLivro(Livro novoLivro) {
+        if (novoLivro == null) {
             System.out.println("Livro inválido.");
             return;
         }
 
-        b.getAcervo().salvar(livro);
+        b.getAcervo().salvar(novoLivro);
         for(Titulo t : b.getTitulos().listar()){
-            if(livro.getIsbn().equalsIgnoreCase(t.getIsbn())){
-                t.getListaDeExemplares().salvar(livro);
-                System.out.println("✅ Livro '" + livro.getNome() + "' adicionado ao acervo");
+            if(novoLivro.getIsbn().equals(t.getIsbn())){
+                correcaoDosDadosDoLivro(novoLivro,t);
+                t.addLivro(novoLivro);
+                System.out.println("✅ Livro '" + novoLivro.getNome() + "' adicionado ao acervo");
                 return;
             }
         }
 
         LivroDAOLista novaListaDeExemplares= new LivroDAOLista();
-        novaListaDeExemplares.salvar(livro);
+        novaListaDeExemplares.salvar(novoLivro);
         System.out.println("Livro adicionado");
         b.getTitulos().salvar(new Titulo(novaListaDeExemplares, new EmprestimoDAOLista(), new ReservaDAOFilaDePrioridade()));
+
+    }
+
+    private static void correcaoDosDadosDoLivro(Livro l, Titulo t){
+        if(!(l.getAutor().equalsIgnoreCase(t.getAutor()))){
+            l.setAutor(t.getAutor());
+        }
+
+        if(!(l.getNome().equalsIgnoreCase(t.getNome()))){
+            l.setNome(t.getNome());
+        }
+
+        if(!(l.getGenero().equalsIgnoreCase(t.getGenero()))){
+            l.setGenero(t.getGenero());
+        }
+
+        if(!(l.getDescricao().equalsIgnoreCase(t.getDescricao()))){
+            l.setDescricao(t.getDescricao());
+        }
+
+        if(!(l.getDataPublicacao().isEqual(t.getDataPublicacao()))){
+            l.setDataPublicacao(t.getDataPublicacao());
+        }
+
     }
 
     /**

@@ -72,6 +72,26 @@ public class Livro {
         this.disponivel = disponivel;
     }
 
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
+
+    public void setDataPublicacao(LocalDate dataPublicacao) {
+        this.dataPublicacao = dataPublicacao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
+
     // Compara dois livros com base no id
     @Override
     public boolean equals(Object obj) {

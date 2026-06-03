@@ -144,7 +144,7 @@
                                         <VBox spacing="8.0" GridPane.rowIndex="2">
                                             <children>
                                                 <Label style="-fx-font-weight: bold; -fx-font-size: 16px;" text="Ano de publicação*" />
-                                                <TextField fx:id="txtAno" prefHeight="50.0" promptText="Ex: 2009" style="-fx-background-color: #E9EEF7; -fx-background-radius: 20; -fx-padding: 0 15;" />
+                                                <TextField fx:id="txtDataDePublicacao" prefHeight="50.0" promptText="Ex: 12/12/2000" style="-fx-background-color: #E9EEF7; -fx-background-radius: 20; -fx-padding: 0 15;" />
                                             </children>
                                         </VBox>
                                         <VBox spacing="8.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />

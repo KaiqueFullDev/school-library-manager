@@ -153,4 +153,19 @@ public class Titulo {
 
         return null;
     }
+
+    public void addLivro(Livro l){
+        if(l==null){
+            throw new IllegalArgumentException();
+        }
+
+        if(!l.getIsbn().equalsIgnoreCase(this.getIsbn())){
+            throw new IllegalArgumentException("Este não é um exemplar desse titulo");
+        }
+
+        this.listaDeExemplares.salvar(l);
+        quantidade=this.listaDeExemplares.tamanho();
+        quantidadeDisponivel++;
+
+    }
 }
