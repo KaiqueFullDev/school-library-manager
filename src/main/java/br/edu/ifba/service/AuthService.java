@@ -72,9 +72,6 @@ public class AuthService {
 
     /**
      * Infere a categoria do usuário a partir do prefixo do ID.
-     *
-     * ALTERAÇÃO: prefixo de professor corrigido de 't' para 'p'.
-     * No BibliotecaRepository os IDs de professor são "p000001", "p000002", etc.
      * e thisIDIsValid() também checa charAt(0) == 'p' para professores.
      * O código original usava 't', o que fazia professores serem cadastrados como ALUNO.
      */
