@@ -1,6 +1,6 @@
 # 📚 School Library System (IFBA)
 
-Repositório destinado ao desenvolvimento do sistema de gerenciamento de biblioteca escolar para a disciplina de **Estrutura de Dados (2026.1)**. O projeto utiliza o padrão **MVC** e interfaces modernas desenvolvidas em **JavaFX**.
+Repositório destinado ao desenvolvimento do sistema de gerenciamento de biblioteca escolar para a disciplina de **Estrutura de Dados (2026.1)**, ministrada pelo professor Claudio Rodolfo Santos de Oliveira(@claudiorodolfo). O projeto utiliza o padrão **MVC** e interfaces modernas desenvolvidas em **JavaFX**.
 
 ---
 
