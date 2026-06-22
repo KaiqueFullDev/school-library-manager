@@ -1,66 +1,74 @@
-# 📚 School Library System (IFBA)
+# 📚 BiblioQueue - School Library System
 
-Repositório destinado ao desenvolvimento do sistema de gerenciamento de biblioteca escolar para a disciplina de **Estrutura de Dados (2026.1)**, ministrada pelo professor Claudio Rodolfo Santos de Oliveira (@claudiorodolfo). O projeto utiliza o padrão **MVC** e interfaces modernas desenvolvidas em **JavaFX**.
+![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
+![JavaFX](https://img.shields.io/badge/JavaFX-ED8B00?style=for-the-badge&logo=java&logoColor=white)
+![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
+
+O **BiblioQueue** é um sistema de gerenciamento de biblioteca escolar desenvolvido para otimizar o fluxo de empréstimos, devoluções e reservas de livros. O software foca na experiência do usuário (alunos, professores e bibliotecários) através de uma interface moderna e dinâmica.
+
+---
+
+## 🎓 Origem e Contexto Acadêmico
+
+Este projeto nasceu e está sendo expandido como parte prática das disciplinas do curso de Engenharia de Computação / Análise e Desenvolvimento de Sistemas no **Instituto Federal da Bahia (IFBA), Campus Vitória da Conquista**.
+
+O histórico de desenvolvimento do sistema está dividido em marcos acadêmicos:
+
+1. **Estrutura de Dados (2026.1):** * **Foco:** Implementação da lógica de negócios, gerenciamento de filas de reserva e acervo utilizando estruturas de dados em memória.
+   * **Docente:** Prof. Claudio Rodolfo Santos de Oliveira ([@claudiorodolfo](https://github.com/claudiorodolfo)).
+   * *Nota: O estado final desta entrega foi congelado na branch `archive/ed-final`.*
+
+2. **Linguagem de Programação 2 (Em Andamento):**
+   * **Foco:** Evolução da arquitetura do sistema para inclusão de **persistência de dados** (Banco de Dados Relacional), padrões de projeto avançados e refatoração do backend.
+   * **Docente:** [Nome do Professor de LP2]
 
 ---
 
-## 👥 Papéis e Atribuições do Grupo
+## 🛠️ Tecnologias e Padrões Utilizados
 
-| Membro | Papel Principal | Atribuições |
-| :--- | :--- | :--- |
-| Integrante | Papel Principal | Responsabilidades Detalhadas |
-| :--- | :--- | :--- |
-| **Emanuel** | **Líder / Integração** | Estrutura Maven, Gestão do Git, Integração Controller/View de Usuário e Revisão Geral. |
-| **Ana Clara** | **Persistência (DAO)** | Implementação das classes de acesso a dados (CRUD) e Estruturas Dinâmicas. |
-| **Charles** | **Service (Negócio)** | Implementação das Regras de Negócio e validações lógicas do sistema. |
-| **Kaique** | **Fullstack / Design** | Telas e Controllers de Login/Cadastro e Interfaces do Bibliotecário. |
-| **Maria Eduarda** | **ED / DAO** | Implementação da Fila de Prioridade e lógica específica de Reservas. |
-| **Indaia** | **Modelagem** | Criação e manutenção das entidades (POJOs) e objetos do sistema. |
-| **Nikolas** | **Controller Bibliotecário** | Integração das Views com a lógica de controle do Bibliotecário. |
-| **Pedro** | **Front-end Usuário** | Construção das interfaces visuais para Alunos e Professores no Scene Builder. |
----
-
-## 🏗️ Divisão Técnica
-
-### 📂 Estrutura de Dados (`ed`)
-*Camada responsável por gerenciar as estruturas de dados customizadas:*
-- **Ana Clara**: `ListaDinamica`, `NoDuplo`, `Listavel`.🟢 (Concluído)
-- **Maria Eduarda**: `ReservaComparator` (Lógica de prioridade).🟢 (Concluído)
-
-### 📂 Repository (DAO)
-*Camada responsável por gerenciar a persistência em memória:*
-- **Ana Clara**: `LivroDAOLista`, `UsuarioDAOLista`, `TituloDAOLista`, `EmprestimoDAOLista` e `ReservaDAOLista`.🟢 (Concluído)
-- **Maria Eduarda**: `ReservaDAOFilaDePrioridade`.🟢 (Concluído)
-- **Emanuel**: `DataBaseSeed`.🟢 (Concluído)
-
-### 📂 Service (Lógica)
-*Lógica principal do sistema:*
-- **Charles**: `AuthService`, Login e Segurança.🟢 (Concluído))
-- **Charles**: `UsuarioService`, Gestão de usuários.🟢 (Concluído)
-- **Charles**: `BibliotecarioService`, Operações administrativas.🟢 (Concluído)
-
-### 📂 Models (Entidades)
-*Entidades base*
-- **Indaia, Maria Eduarda**:`Livro`, `Titulo`, `Usuario`, `Reserva`, `Emprestimo`.🟢 (Concluído)
-- **Emanuel**: `Bibiloteca`.🟢 (Concluído)
-
-### 📂 Views (resources/views)
-*Interfaces FXML desenvolvidas no Scene Builder:*
-- **Kaique**: `AuthViews`.🟢 (Concluído)
-- **Pedro**: `UsuarioViews`.🟢 (Concluído)
-- **Kaique**: `BibliotecarioViews` 🟢 (Concluído)
-
-### 📂 Controller
-*Lógica das telas e integração:*
-- **Kaique**: `AuthController`, Controle da tela de Login e Cadastro 🟢 (Concluído)
-- **Pedro, e Emanuel**: `UsuarioController` 🟢 (Concluído)
-- **Emanuel, e Nikolas**: `BibliotecarioController` 🟢 (Concluído)
-  
----
-
-## 🚀 Integração e Revisão Geral
-**Responsável:** Emanuel (Líder)
-*Garantia da coesão entre os pacotes e funcionamento do ciclo de vida da aplicação.*
+* **Linguagem:** Java 17+
+* **Interface Gráfica:** JavaFX (arquivos FXML e estilização CSS)
+* **Padrão de Arquitetura:** MVC (Model-View-Controller)
+* **Persistência (LP2):** [Ex: JDBC / MySQL / PostgreSQL - Atualizar conforme implementar]
 
 ---
-*Este documento será atualizado conforme a contribuição de cada membro do grupo.*
+
+## 🚀 Funcionalidades Principais
+
+* **Autenticação Segura:** Telas de login customizadas com validações de credenciais para diferentes níveis de acesso.
+* **Dashboard do Bibliotecário:** Painel geral com indicadores em tempo real (Total de Livros, Empréstimos Ativos, Movimentação Diária e Pendências).
+* **Fila de Reserva Dinâmica:** Visualização automatizada dos próximos usuários na fila para retirada de exemplares disputados.
+* **Inventário Automatizado:** Criação dinâmica de cards informando o estoque disponível, ISBN e ano de lançamento de cada título.
+
+---
+
+## 📁 Estrutura de Branches do Repositório
+
+Para manter o histórico acadêmico organizado, o repositório utiliza a seguinte estrutura:
+
+* `main`: Branch principal de desenvolvimento ativo (focada em LP2 e persistência).
+* `archive/ed-final`: Versão estável do projeto utilizando apenas persistência em memória (Estrutura de Dados).
+
+---
+
+## 🔧 Como Executar o Projeto
+
+### Pré-requisitos
+* Java JDK 17 ou superior instalado.
+* JavaFX SDK configurado na sua IDE (Eclipse, IntelliJ IDEA ou VS Code).
+
+### Passo a Passo
+1. Clone o repositório:
+   ```bash
+   git clone [https://github.com/SEU-USUARIO/NOME-DO-REPOSITORIO.git](https://github.com/SEU-USUARIO/NOME-DO-REPOSITORIO.git)
+Abra o projeto na sua IDE de preferência.
+
+Certifique-se de adicionar as bibliotecas do JavaFX ao Build Path do projeto.
+
+Execute a classe principal (geralmente contendo o método main que inicia o Application do JavaFX).
+
+
+### O que essa estrutura faz pelo seu projeto:
+* **Profissionalismo:** O uso de badges (os escudos coloridos de Java/JavaFX no topo) dá uma cara de projeto comercial.
+* **Localização e Contexto:** Cita textualmente o **IFBA - Campus Vitória da Conquista**, o que gera valor institucional para o seu portfólio.
+* **Explicação das Branches:** Evita que um avaliador de LP2 entre na branch de ED por engano ou vice-versa, organizando a linha do tempo do projeto.
