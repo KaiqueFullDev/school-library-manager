@@ -1,10 +1,10 @@
-# 📚 BiblioQueue - School Library System
+# 📚 LibQueue - School Library System
 
 ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
 ![JavaFX](https://img.shields.io/badge/JavaFX-ED8B00?style=for-the-badge&logo=java&logoColor=white)
 ![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
 
-O **BiblioQueue** é um sistema de gerenciamento de biblioteca escolar desenvolvido para otimizar o fluxo de empréstimos, devoluções e reservas de livros. O software foca na experiência do usuário (alunos, professores e bibliotecários) através de uma interface moderna e dinâmica.
+O **LibQueue** é um sistema de gerenciamento de biblioteca escolar desenvolvido para otimizar o fluxo de empréstimos, devoluções e reservas de livros. O software foca na experiência do usuário (alunos, professores e bibliotecários) através de uma interface moderna e dinâmica.
 
 ---
 
