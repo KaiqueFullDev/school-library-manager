@@ -10,17 +10,18 @@ O **LibQueue** é um sistema de gerenciamento de biblioteca escolar desenvolvido
 
 ## 🎓 Origem e Contexto Acadêmico
 
-Este projeto nasceu e está sendo expandido como parte prática das disciplinas do curso de Engenharia de Computação / Análise e Desenvolvimento de Sistemas no **Instituto Federal da Bahia (IFBA), Campus Vitória da Conquista**.
+Este projeto nasceu e está sendo expandido como parte prática das disciplinas do curso de **Sistemas de Informação** no **Instituto Federal da Bahia (IFBA), Campus Vitória da Conquista**.
 
 O histórico de desenvolvimento do sistema está dividido em marcos acadêmicos:
 
-1. **Estrutura de Dados (2026.1):** * **Foco:** Implementação da lógica de negócios, gerenciamento de filas de reserva e acervo utilizando estruturas de dados em memória.
+1. **Estrutura de Dados (2026.1):**
+   * **Foco:** Implementação da lógica de negócios, gerenciamento de acervo e controle de filas de reserva utilizando persistência em memória. Com o objetivo de consolidar os conceitos teóricos da disciplina, as estruturas de dados utilizadas foram implementadas de forma personalizada. Os dados iniciais da aplicação são povoados em tempo de execução por meio de uma classe semente (`DatabaseSeed`), que simula um banco de dados pré-carregado com livros e usuários.
    * **Docente:** Prof. Claudio Rodolfo Santos de Oliveira ([@claudiorodolfo](https://github.com/claudiorodolfo)).
-   * *Nota: O estado final desta entrega foi congelado na branch `archive/ed-final`.*
+   * *Nota: O estado estável desta entrega foi congelado na branch `archive/ed-final`.*
 
 2. **Linguagem de Programação 2 (Em Andamento):**
-   * **Foco:** Evolução da arquitetura do sistema para inclusão de **persistência de dados** (Banco de Dados Relacional), padrões de projeto avançados e refatoração do backend.
-   * **Docente:** [Nome do Professor de LP2]
+   * **Foco:** Evolução da arquitetura do backend para inclusão de **persistência de dados real** através da manipulação e armazenamento de arquivos locais. Nesta etapa, a estrutura interna do projeto é refatorada para utilizar exclusivamente as coleções e estruturas de dados nativas da API do Java (Java Collections).
+   * **Docente:** Prof. Alexandro dos Santos Silva ([@alexandrossilva](https://github.com/alexandrossilva)).
 
 ---
 
@@ -66,9 +67,3 @@ Abra o projeto na sua IDE de preferência.
 Certifique-se de adicionar as bibliotecas do JavaFX ao Build Path do projeto.
 
 Execute a classe principal (geralmente contendo o método main que inicia o Application do JavaFX).
-
-
-### O que essa estrutura faz pelo seu projeto:
-* **Profissionalismo:** O uso de badges (os escudos coloridos de Java/JavaFX no topo) dá uma cara de projeto comercial.
-* **Localização e Contexto:** Cita textualmente o **IFBA - Campus Vitória da Conquista**, o que gera valor institucional para o seu portfólio.
-* **Explicação das Branches:** Evita que um avaliador de LP2 entre na branch de ED por engano ou vice-versa, organizando a linha do tempo do projeto.
