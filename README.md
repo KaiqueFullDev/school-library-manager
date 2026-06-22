@@ -17,7 +17,7 @@ O histórico de desenvolvimento do sistema está dividido em marcos acadêmicos:
 1. **Estrutura de Dados (2026.1):**
    * **Foco:** Implementação da lógica de negócios, gerenciamento de acervo e controle de filas de reserva utilizando persistência em memória. Com o objetivo de consolidar os conceitos teóricos da disciplina, as estruturas de dados utilizadas foram implementadas de forma personalizada. Os dados iniciais da aplicação são povoados em tempo de execução por meio de uma classe semente (`DatabaseSeed`), que simula um banco de dados pré-carregado com livros e usuários.
    * **Docente:** Prof. Claudio Rodolfo Santos de Oliveira ([@claudiorodolfo](https://github.com/claudiorodolfo)).
-   * *Nota: O estado estável desta entrega foi congelado na branch `archive/ed-final`.*
+   * *Nota: O estado estável desta entrega foi congelado na branch `archive/ed`.*
 
 2. **Linguagem de Programação 2 (Em Andamento):**
    * **Foco:** Evolução da arquitetura do backend para inclusão de **persistência de dados real** através da manipulação e armazenamento de arquivos locais. Nesta etapa, a estrutura interna do projeto é refatorada para utilizar exclusivamente as coleções e estruturas de dados nativas da API do Java (Java Collections).
