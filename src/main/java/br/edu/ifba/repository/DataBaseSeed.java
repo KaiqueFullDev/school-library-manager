@@ -7,7 +7,7 @@ import br.edu.ifba.repository.dao.UsuarioDAOLista;
 import java.time.LocalDate;
 
 public class DataBaseSeed{
-    // Dados estáticos de validação (podem ser acessados sem instanciar a classe)
+    ///-----------------------------------IDs-------------------------------------------------///
     public static final String[] IDS_STUDENTS = {"s000001","s000002","s000003","s000004"};
     public static final String[] IDS_TEACHERS = {"p000001","p000002","p000003","p000004"};
     public static final String[] IDS_LIBRARIANS = {"l000001"};
@@ -17,7 +17,7 @@ public class DataBaseSeed{
     public UsuarioDAOLista listaDeUsuarios= new UsuarioDAOLista();
 
     public static void popularDadosIniciais(LivroDAOLista acervo, UsuarioDAOLista usuarios) {
-        // --- POPULAR LIVROS ---
+        /// --- POPULAR LIVROS -------------------------------------------------------------------------------------
         // --- 1. LIVROS COM MUITOS EXEMPLARES (Para testar múltiplos empréstimos) ---
         // "Código Limpo" - 10 exemplares
         for (int i = 0; i < 10; i++) {
@@ -54,7 +54,7 @@ public class DataBaseSeed{
                         "Tecnologia", "Descrição genérica do livro " + nomes[i], LocalDate.now()));
             }
         }
-        // --- POPULAR USUÁRIOS ---
+        /// --------------------------------- POPULAR USUÁRIOS ------------------------------------------------///
         // Alunos
         usuarios.salvar(new Usuario("s000001", "João Silva", "joao.silva@email.com", "123456", TipoUsuario.ALUNO));
         usuarios.salvar(new Usuario("s000002", "Maria Oliveira", "maria.oliveira@email.com", "abc123", TipoUsuario.ALUNO));
