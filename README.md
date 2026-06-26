@@ -1,5 +1,12 @@
 # LibQueue - Pendências de Desenvolvimento
 
+## 🔗 Acesso Rápido
+
+- [📋 Quadro de Tarefas](#-quadro-de-tarefas)
+- [🎯 Objetivo da Atualização](#-objetivo-da-atualização)
+- [📝 Estrutura dos Arquivos](#-estrutura-dos-arquivos)
+- [📖 Manual de Trabalho com GitHub](#-manual-de-trabalho-com-github)
+
 ## 📊 Status
 
 | Status | Significado |
@@ -459,3 +466,133 @@ l000001
 - O `BibliotecaRepository` será responsável por montar o estado completo do sistema.
 - Os relacionamentos entre objetos deverão ser reconstruídos após o carregamento dos dados.
 - Novas funcionalidades deverão utilizar o `BibliotecaRepository` como ponto central de acesso aos dados.
+
+
+# Manual de Trabalho com GitHub - BiblioQueue
+
+## 1. Clonar o Repositório
+
+```bash
+git clone https://github.com/Nuillexe/school-library-manager.git
+cd school-library-manager
+```
+
+---
+
+## 2. Entrar na Branch do Projeto
+
+Todo o desenvolvimento desta etapa será realizado na branch:
+
+```bash
+git checkout archive/Lp2
+```
+
+Caso necessário:
+
+```bash
+git checkout -b archive/Lp2 origin/archive/Lp2
+```
+
+⚠️ Não realizar alterações diretamente na `main`.
+
+---
+
+## 3. Atualizar Antes de Começar
+
+Sempre execute:
+
+```bash
+git pull origin archive/Lp2
+```
+
+Isso garante que você está trabalhando na versão mais recente do projeto.
+
+---
+
+## 4. Realizar Alterações
+
+Implemente apenas as tarefas sob sua responsabilidade e evite modificar arquivos de outros membros sem necessidade.
+
+---
+
+## 5. Criar um Commit
+
+Verifique os arquivos alterados:
+
+```bash
+git status
+```
+
+Adicione as alterações:
+
+```bash
+git add .
+```
+
+Realize o commit:
+
+```bash
+git commit -m "Descrição da alteração"
+```
+
+Exemplos:
+
+```bash
+git commit -m "Implementa carregarUsuarios"
+git commit -m "Implementa salvarEmprestimo"
+git commit -m "Refatora tela de inventario"
+```
+
+---
+
+## 6. Enviar para o GitHub
+
+```bash
+git push origin archive/Lp2
+```
+
+---
+
+## 7. Atualizar o README
+
+Ao iniciar ou concluir uma tarefa, atualizar o status correspondente:
+
+* ⬜ Não iniciado
+* 🟨 Em andamento
+* ✅ Concluído
+* ❌ Bloqueado
+
+---
+
+## Regras da Equipe
+
+* Não realizar push na `main`.
+* Sempre executar `git pull` antes de começar.
+* Utilizar mensagens de commit claras.
+* Atualizar o README conforme o andamento das tarefas.
+* Em caso de conflito, comunicar a equipe antes de realizar alterações.
+
+---
+
+## Fluxo Resumido
+
+```bash
+git clone https://github.com/Nuillexe/school-library-manager.git
+
+cd school-library-manager
+
+git checkout archive/Lp2
+
+git pull origin archive/Lp2
+
+# realizar alterações
+
+git add .
+
+git commit -m "Descrição da alteração"
+
+git push origin archive/Lp2
+```
+
+Ao final do desenvolvimento, será realizado um Pull Request da branch `archive/Lp2` para a `main`.
+
