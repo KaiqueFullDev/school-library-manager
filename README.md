@@ -27,6 +27,12 @@
 | Ajustar menu superior da tela de Inventário do Usuário | Kaique | ⬜ Não iniciado |
 | Reduzir o efeito de "piscar" durante a navegação entre telas | Kaique | ⬜ Não iniciado |
 
+Tipos de status 
+⬜ Não iniciado
+🟨 Em andamento
+✅ Concluído
+❌ Bloqueado
+
 
 ## Objetivo da Atualização
 
