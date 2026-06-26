@@ -1,66 +1,313 @@
-# 📚 School Library System (IFBA)
+# BiblioQueue - Pendências de Desenvolvimento
 
-Repositório destinado ao desenvolvimento do sistema de gerenciamento de biblioteca escolar para a disciplina de **Estrutura de Dados (2026.1)**. O projeto utiliza o padrão **MVC** e interfaces modernas desenvolvidas em **JavaFX**.
+## Objetivo da Atualização
+
+O sistema deixará de utilizar a classe `DataBaseSeed` como mecanismo de persistência em memória e passará a utilizar arquivos `.txt` para armazenamento permanente dos dados.
+
+A nova arquitetura será composta principalmente por:
+
+* `PersistenceManager` → responsável pela leitura e escrita dos arquivos.
+* `BibliotecaRepository` → responsável por manter os dados carregados, reconstruir relacionamentos entre objetos e fornecer acesso às informações do sistema.
+* Arquivos:
+
+  * `usuarios.txt`
+  * `livros.txt`
+  * `emprestimos.txt`
+  * `reservas.txt`
+  * `ids.txt`
+
+---
+
+# Tarefas Gerais
+
+## 1. Criação de Construtores Auxiliares
+
+**Responsável: Definir**
+
+Criar construtores simplificados para permitir a criação de objetos temporários durante o carregamento dos arquivos.
+
+Exemplos:
+
+```java
+Usuario(String id)
+
+Livro(long id)
+
+Titulo(String isbn)
+```
+
+Esses construtores serão utilizados apenas durante a leitura dos arquivos, permitindo a criação de objetos "fictícios" que posteriormente terão suas referências corrigidas pelo `BibliotecaRepository`.
 
 ---
 
-## 👥 Papéis e Atribuições do Grupo
+## 2. Ajustes na Camada de Serviços
 
-| Membro | Papel Principal | Atribuições |
-| :--- | :--- | :--- |
-| Integrante | Papel Principal | Responsabilidades Detalhadas |
-| :--- | :--- | :--- |
-| **Emanuel** | **Líder / Integração** | Estrutura Maven, Gestão do Git, Integração Controller/View de Usuário e Revisão Geral. |
-| **Ana Clara** | **Persistência (DAO)** | Implementação das classes de acesso a dados (CRUD) e Estruturas Dinâmicas. |
-| **Charles** | **Service (Negócio)** | Implementação das Regras de Negócio e validações lógicas do sistema. |
-| **Kaique** | **Fullstack / Design** | Telas e Controllers de Login/Cadastro e Interfaces do Bibliotecário. |
-| **Maria Eduarda** | **ED / DAO** | Implementação da Fila de Prioridade e lógica específica de Reservas. |
-| **Indaia** | **Modelagem** | Criação e manutenção das entidades (POJOs) e objetos do sistema. |
-| **Nikolas** | **Controller Bibliotecário** | Integração das Views com a lógica de controle do Bibliotecário. |
-| **Pedro** | **Front-end Usuário** | Construção das interfaces visuais para Alunos e Professores no Scene Builder. |
----
+**Responsável: Definir**
 
-## 🏗️ Divisão Técnica
+Após a implementação da persistência em arquivos, os serviços deverão ser revisados.
 
-### 📂 Estrutura de Dados (`ed`)
-*Camada responsável por gerenciar as estruturas de dados customizadas:*
-- **Ana Clara**: `ListaDinamica`, `NoDuplo`, `Listavel`.🟢 (Concluído)
-- **Maria Eduarda**: `ReservaComparator` (Lógica de prioridade).🟢 (Concluído)
+Necessário:
 
-### 📂 Repository (DAO)
-*Camada responsável por gerenciar a persistência em memória:*
-- **Ana Clara**: `LivroDAOLista`, `UsuarioDAOLista`, `TituloDAOLista`, `EmprestimoDAOLista` e `ReservaDAOLista`.🟢 (Concluído)
-- **Maria Eduarda**: `ReservaDAOFilaDePrioridade`.🟢 (Concluído)
-- **Emanuel**: `DataBaseSeed`.🟢 (Concluído)
+* Atualizar operações de cadastro.
+* Atualizar operações de remoção.
+* Atualizar operações de empréstimo.
+* Atualizar operações de devolução.
+* Atualizar operações de reserva.
 
-### 📂 Service (Lógica)
-*Lógica principal do sistema:*
-- **Charles**: `AuthService`, Login e Segurança.🟢 (Concluído))
-- **Charles**: `UsuarioService`, Gestão de usuários.🟢 (Concluído)
-- **Charles**: `BibliotecarioService`, Operações administrativas.🟢 (Concluído)
+Sempre que houver alteração nos dados, ela deverá ser refletida tanto:
 
-### 📂 Models (Entidades)
-*Entidades base*
-- **Indaia, Maria Eduarda**:`Livro`, `Titulo`, `Usuario`, `Reserva`, `Emprestimo`.🟢 (Concluído)
-- **Emanuel**: `Bibiloteca`.🟢 (Concluído)
-
-### 📂 Views (resources/views)
-*Interfaces FXML desenvolvidas no Scene Builder:*
-- **Kaique**: `AuthViews`.🟢 (Concluído)
-- **Pedro**: `UsuarioViews`.🟢 (Concluído)
-- **Kaique**: `BibliotecarioViews` 🟢 (Concluído)
-
-### 📂 Controller
-*Lógica das telas e integração:*
-- **Kaique**: `AuthController`, Controle da tela de Login e Cadastro 🟢 (Concluído)
-- **Pedro, e Emanuel**: `UsuarioController` 🟢 (Concluído)
-- **Emanuel, e Nikolas**: `BibliotecarioController` 🟢 (Concluído)
-  
----
-
-## 🚀 Integração e Revisão Geral
-**Responsável:** Emanuel (Líder)
-*Garantia da coesão entre os pacotes e funcionamento do ciclo de vida da aplicação.*
+* Nas estruturas em memória.
+* Nos arquivos de persistência.
 
 ---
-*Este documento será atualizado conforme a contribuição de cada membro do grupo.*
+
+## 3. Métodos de Manipulação de Dados no BibliotecaRepository
+
+**Responsável: Definir**
+
+Criar métodos responsáveis por:
+
+### Livros
+
+* adicionarLivro(...)
+* removerLivro(...)
+
+### Usuários
+
+* adicionarUsuario(...)
+* removerUsuario(...)
+
+### Empréstimos
+
+* adicionarEmprestimo(...)
+* removerEmprestimo(...)
+
+### Reservas
+
+* adicionarReserva(...)
+* removerReserva(...)
+
+### Inicialização do Sistema
+
+Implementar método responsável por:
+
+```java
+carregarSistema()
+```
+
+Fluxo esperado:
+
+1. Carregar livros.
+2. Carregar usuários.
+3. Carregar empréstimos.
+4. Carregar reservas.
+5. Carregar IDs válidos.
+6. Reconstruir relacionamentos.
+
+---
+
+## 4. Reconstrução dos Relacionamentos
+
+**Responsável: Definir**
+
+Implementar método responsável por substituir referências temporárias pelas referências reais após o carregamento dos arquivos.
+
+Exemplos:
+
+* Emprestimo → Usuario
+* Emprestimo → Livro
+* Reserva → Usuario
+* Reserva → Titulo
+
+Além disso:
+
+* Associar empréstimos aos respectivos usuários.
+* Associar reservas aos respectivos usuários.
+* Reconstruir a lista de títulos.
+* Reconstruir filas de reserva.
+
+---
+
+# Tarefas Individuais
+
+## Charles
+
+### Escrita Incremental (Append)
+
+Implementar:
+
+```java
+salvarLivro(Livro livro)
+
+salvarUsuario(Usuario usuario)
+
+salvarEmprestimo(Emprestimo emprestimo)
+
+salvarReserva(Reserva reserva)
+```
+
+Cada método deverá adicionar uma nova linha ao arquivo correspondente sem apagar os dados já existentes.
+
+---
+
+### Reescrita Completa
+
+Implementar:
+
+```java
+sobrescreverLivros(...)
+
+sobrescreverUsuarios(...)
+
+sobrescreverEmprestimos(...)
+
+sobrescreverReservas(...)
+```
+
+Esses métodos serão utilizados em operações de remoção e atualização.
+
+---
+
+## Maria Eduarda
+
+### Leitura dos Arquivos
+
+Implementar:
+
+```java
+carregarLivros()
+
+carregarUsuarios()
+
+carregarEmprestimos()
+
+carregarReservas()
+
+carregarIds()
+```
+
+Os objetos carregados poderão utilizar referências temporárias (usuários, livros e títulos fictícios).
+
+A reconstrução final dos relacionamentos será feita posteriormente pelo `BibliotecaRepository`.
+
+---
+
+## Indaia
+
+### Estruturação dos Arquivos Iniciais
+
+Migrar os dados atualmente presentes no `DataBaseSeed` para:
+
+* usuarios.txt
+* livros.txt
+* ids.txt
+
+Também é necessário:
+
+* Adicionar mais usuários para testes.
+* Adicionar mais livros e exemplares.
+* Garantir diversidade de dados para testes de empréstimo e reserva.
+
+---
+
+## Kaique
+
+### Refinamento das Interfaces
+
+Ajustar:
+
+#### Inventário do Usuário
+
+* Corrigir alinhamento e organização do menu superior.
+
+#### Navegação
+
+* Reduzir o efeito de intermitência (piscar de tela) durante as trocas de páginas.
+
+---
+
+## Ana Clara
+
+### Estruturas de Dados
+
+Substituir gradualmente estruturas implementadas manualmente por estruturas nativas do Java Collections Framework quando apropriado.
+
+Avaliar principalmente:
+
+* List
+* ArrayList
+* Queue
+* PriorityQueue
+* Map
+
+Garantir compatibilidade com os DAOs existentes.
+
+---
+
+# Estrutura dos Arquivos
+
+## usuarios.txt
+
+Campos:
+
+```text
+id | nome | email | senha | tipo
+```
+
+---
+
+## livros.txt
+
+Campos:
+
+```text
+id | nome | autor | isbn | genero | descricao | dataPublicacao | disponivel
+```
+
+---
+
+## emprestimos.txt
+
+Campos:
+
+```text
+id | dataEmprestimo | dataDevolucao | atrasado | idUsuario | idLivro
+```
+
+---
+
+## reservas.txt
+
+Campos:
+
+```text
+id | idUsuario | isbnTitulo | dataReserva
+```
+
+---
+
+## ids.txt
+
+Lista contendo todos os IDs institucionais válidos.
+
+Exemplo:
+
+```text
+s000001
+s000002
+s000003
+p000001
+p000002
+l000001
+```
+
+---
+
+# Observações
+
+* A classe `DataBaseSeed` será removida.
+* Toda persistência passará a ser feita via arquivos.
+* O `PersistenceManager` será responsável apenas pela leitura e escrita dos arquivos.
+* O `BibliotecaRepository` será responsável por montar o estado completo do sistema.
+* Os relacionamentos entre objetos deverão ser reconstruídos após o carregamento dos dados.
+* Novas funcionalidades deverão utilizar o `BibliotecaRepository` como ponto central de acesso aos dados.
