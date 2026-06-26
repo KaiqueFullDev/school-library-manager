@@ -1,69 +1,598 @@
-# 📚 LibQueue - School Library System
+# LibQueue - Pendências de Desenvolvimento
 
-![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
-![JavaFX](https://img.shields.io/badge/JavaFX-ED8B00?style=for-the-badge&logo=java&logoColor=white)
-![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
+## 🔗 Acesso Rápido
 
-O **LibQueue** é um sistema de gerenciamento de biblioteca escolar desenvolvido para otimizar o fluxo de empréstimos, devoluções e reservas de livros. O software foca na experiência do usuário (alunos, professores e bibliotecários) através de uma interface moderna e dinâmica.
+- [📋 Quadro de Tarefas](#-quadro-de-tarefas)
+- [🎯 Objetivo da Atualização](#-objetivo-da-atualização)
+- [📝 Estrutura dos Arquivos](#-estrutura-dos-arquivos)
+- [📖 Manual de Trabalho com GitHub](#manual-de-trabalho-com-github---libqueue)
 
----
+## 📊 Status
 
-## 🎓 Origem e Contexto Acadêmico
-
-Este projeto nasceu e está sendo expandido como parte prática das disciplinas do curso de **Sistemas de Informação** no **Instituto Federal da Bahia (IFBA), Campus Vitória da Conquista**.
-
-O histórico de desenvolvimento do sistema está dividido em marcos acadêmicos:
-
-1. **Estrutura de Dados (2026.1):**
-   * **Foco:** Implementação da lógica de negócios, gerenciamento de acervo e controle de filas de reserva utilizando persistência em memória. Com o objetivo de consolidar os conceitos teóricos da disciplina, as estruturas de dados utilizadas foram implementadas de forma personalizada. Os dados iniciais da aplicação são povoados em tempo de execução por meio de uma classe semente (`DatabaseSeed`), que simula um banco de dados pré-carregado com livros e usuários.
-   * **Docente:** Prof. Claudio Rodolfo Santos de Oliveira ([@claudiorodolfo](https://github.com/claudiorodolfo)).
-   * *Nota: desenvolvido em [`archive/ed-final`](https://github.com/Nuillexe/school-library-manager/tree/archive/ed).*
-
-2. **Linguagem de Programação 2 (Em Andamento):**
-   * **Foco:** Evolução da arquitetura do backend para inclusão de **persistência de dados real** através da manipulação e armazenamento de arquivos locais. Nesta etapa, a estrutura interna do projeto é refatorada para utilizar exclusivamente as coleções e estruturas de dados nativas da API do Java (Java Collections).
-   * **Docente:** Prof. Alexandro dos Santos Silva ([@alexandrossilva](https://github.com/alexandrossilva)).
-  * *Nota: desenvolvido em [`archive/Lp2`](https://github.com/Nuillexe/school-library-manager/tree/archive/Lp2).*
----
-
-## 🛠️ Tecnologias e Padrões Utilizados
-
-* **Linguagem:** Java 17+
-* **Interface Gráfica:** JavaFX (arquivos FXML e estilização CSS)
-* **Padrão de Arquitetura:** MVC (Model-View-Controller)
-* **Persistência (LP2):** [Ex: JDBC / MySQL / PostgreSQL - Atualizar conforme implementar]
+| Status | Significado |
+|----------|----------|
+| ⬜ | Não iniciado |
+| 🟨 | Em andamento |
+| ✅ | Concluído |
+| ❌ | Bloqueado |
 
 ---
 
-## 🚀 Funcionalidades Principais
+# 📋 Quadro de Tarefas
 
-* **Autenticação Segura:** Telas de login customizadas com validações de credenciais para diferentes níveis de acesso.
-* **Dashboard do Bibliotecário:** Painel geral com indicadores em tempo real (Total de Livros, Empréstimos Ativos, Movimentação Diária e Pendências).
-* **Fila de Reserva Dinâmica:** Visualização automatizada dos próximos usuários na fila para retirada de exemplares disputados.
-* **Inventário Automatizado:** Criação dinâmica de cards informando o estoque disponível, ISBN e ano de lançamento de cada título.
+| ID | Tarefa | Responsável | Status |
+|----|---------|-------------|---------|
+| T01 | Estruturar arquivos iniciais | Indaia | ⬜ |
+| T02 | Adicionar mais dados de teste | Indaia | ⬜ |
+| T03 | Implementar carregarLivros() | Charles | ⬜ |
+| T04 | Implementar carregarUsuarios() | Charles | ⬜ |
+| T05 | Implementar carregarEmprestimos() | Charles | ⬜ |
+| T06 | Implementar carregarReservas() | Charles | ⬜ |
+| T07 | Implementar carregarIds() | Charles | ⬜ |
+| T08 | Implementar salvarLivro() | Maria Eduarda | ⬜ |
+| T09 | Implementar salvarUsuario() | Maria Eduarda | ⬜ |
+| T10 | Implementar salvarEmprestimo() | Maria Eduarda | ⬜ |
+| T11 | Implementar salvarReserva() | Maria Eduarda | ⬜ |
+| T12 | Implementar sobrescreverLivros() | Maria Eduarda | ⬜ |
+| T13 | Implementar sobrescreverUsuarios() | Maria Eduarda | ⬜ |
+| T14 | Implementar sobrescreverEmprestimos() | Maria Eduarda | ⬜ |
+| T15 | Implementar sobrescreverReservas() | Maria Eduarda | ⬜ |
+| T16 | Criar construtores auxiliares | Indaia | ⬜ |
+| T17 | Implementar reconstrução dos relacionamentos | Emanuel | ⬜ |
+| T18 | Criar métodos de persistência na BibliotecaRepository | Emanuel | ⬜ |
+| T19 | Ajustar Services para persistência em arquivos | Charles | ⬜ |
+| T20 | Substituir EDs por Collections Framework | Ana Clara | ⬜ |
+| T21 | Ajustar menu superior do Inventário | Kaique | ⬜ |
+| T22 | Reduzir efeito de intermitência das telas | Kaique | ⬜ |
 
 ---
 
-## 📁 Estrutura de Branches do Repositório
+# Objetivo da Atualização
 
-Para manter o histórico acadêmico organizado, o repositório utiliza a seguinte estrutura:
+O sistema deixará de utilizar a classe `DataBaseSeed` como mecanismo de persistência em memória e passará a utilizar arquivos `.txt` para armazenamento permanente dos dados.
 
-* `main`: Branch principal de desenvolvimento ativo (focada em LP2 e persistência).
-* `archive/ed-final`: Versão estável do projeto utilizando apenas persistência em memória (Estrutura de Dados).
+A nova arquitetura será composta principalmente por:
+
+- `PersistenceManager` → responsável pela leitura e escrita dos arquivos.
+- `BibliotecaRepository` → responsável por manter os dados carregados, reconstruir relacionamentos entre objetos e fornecer acesso às informações do sistema.
+
+Arquivos utilizados:
+
+- `usuarios.txt`
+- `livros.txt`
+- `emprestimos.txt`
+- `reservas.txt`
+- `ids.txt`
 
 ---
 
-## 🔧 Como Executar o Projeto
+# Tarefas Detalhadas
 
-### Pré-requisitos
-* Java JDK 17 ou superior instalado.
-* JavaFX SDK configurado na sua IDE (Eclipse, IntelliJ IDEA ou VS Code).
+## T01 - Estruturar arquivos iniciais
+**Responsável:** Indaia
 
-### Passo a Passo
-1. Clone o repositório:
-   ```bash
-   git clone [https://github.com/SEU-USUARIO/NOME-DO-REPOSITORIO.git](https://github.com/SEU-USUARIO/NOME-DO-REPOSITORIO.git)
-Abra o projeto na sua IDE de preferência.
+Migrar os dados atualmente presentes no `DataBaseSeed` para:
 
-Certifique-se de adicionar as bibliotecas do JavaFX ao Build Path do projeto.
+- `usuarios.txt`
+- `livros.txt`
+- `ids.txt`
 
-Execute a classe principal (geralmente contendo o método main que inicia o Application do JavaFX).
+Também validar se os arquivos estão compatíveis com os métodos de leitura que serão implementados.
+
+---
+
+## T02 - Adicionar mais dados de teste
+**Responsável:** Indaia
+
+Adicionar:
+
+- Novos usuários.
+- Novos livros.
+- Novos exemplares.
+- Casos para testes de empréstimo.
+- Casos para testes de reserva.
+
+Objetivo: aumentar a cobertura de testes da aplicação.
+
+---
+
+## T03 - Implementar carregarLivros()
+**Responsável:** Maria Eduarda
+
+Implementar:
+
+```java
+carregarLivros()
+```
+
+O método deverá:
+
+- Ler `livros.txt`.
+- Instanciar objetos Livro.
+- Retornar uma estrutura contendo todos os livros carregados.
+
+---
+
+## T04 - Implementar carregarUsuarios()
+**Responsável:** Maria Eduarda
+
+Implementar:
+
+```java
+carregarUsuarios()
+```
+
+O método deverá:
+
+- Ler `usuarios.txt`.
+- Instanciar objetos Usuario.
+- Retornar a lista carregada.
+
+---
+
+## T05 - Implementar carregarEmprestimos()
+**Responsável:** Maria Eduarda
+
+Implementar:
+
+```java
+carregarEmprestimos()
+```
+
+Observação:
+
+- Inicialmente poderá utilizar usuários e livros temporários para permitir a reconstrução posterior dos relacionamentos.
+
+---
+
+## T06 - Implementar carregarReservas()
+**Responsável:** Maria Eduarda
+
+Implementar:
+
+```java
+carregarReservas()
+```
+
+Observação:
+
+- Inicialmente poderá utilizar títulos temporários.
+
+---
+
+## T07 - Implementar carregarIds()
+**Responsável:** Maria Eduarda
+
+Implementar:
+
+```java
+carregarIds()
+```
+
+Responsável por carregar todos os IDs válidos da instituição.
+
+---
+
+## T08 - Implementar salvarLivro()
+**Responsável:** Charles
+
+Implementar:
+
+```java
+salvarLivro(Livro livro)
+```
+
+Utilizar escrita incremental (`append`) para adicionar novos registros sem apagar os existentes.
+
+---
+
+## T09 - Implementar salvarUsuario()
+**Responsável:** Charles
+
+Implementar:
+
+```java
+salvarUsuario(Usuario usuario)
+```
+
+Utilizar escrita incremental.
+
+---
+
+## T10 - Implementar salvarEmprestimo()
+**Responsável:** Charles
+
+Implementar:
+
+```java
+salvarEmprestimo(Emprestimo emprestimo)
+```
+
+Utilizar escrita incremental.
+
+---
+
+## T11 - Implementar salvarReserva()
+**Responsável:** Charles
+
+Implementar:
+
+```java
+salvarReserva(Reserva reserva)
+```
+
+Utilizar escrita incremental.
+
+---
+
+## T12 - Implementar sobrescreverLivros()
+**Responsável:** Charles
+
+Implementar:
+
+```java
+sobrescreverLivros(...)
+```
+
+Utilizado principalmente em operações de remoção ou atualização.
+
+---
+
+## T13 - Implementar sobrescreverUsuarios()
+**Responsável:** Charles
+
+Implementar:
+
+```java
+sobrescreverUsuarios(...)
+```
+
+Utilizado principalmente em operações de remoção ou atualização.
+
+---
+
+## T14 - Implementar sobrescreverEmprestimos()
+**Responsável:** Charles
+
+Implementar:
+
+```java
+sobrescreverEmprestimos(...)
+```
+
+Utilizado principalmente em operações de remoção ou atualização.
+
+---
+
+## T15 - Implementar sobrescreverReservas()
+**Responsável:** Charles
+
+Implementar:
+
+```java
+sobrescreverReservas(...)
+```
+
+Utilizado principalmente em operações de remoção ou atualização.
+
+---
+
+## T16 - Criar construtores auxiliares
+**Responsável:** A definir
+
+Criar construtores simplificados para auxiliar no carregamento dos dados.
+
+Exemplos:
+
+```java
+Usuario(String id)
+
+Livro(long id)
+
+Titulo(String isbn)
+```
+
+Esses construtores serão utilizados para criação de objetos temporários durante a leitura dos arquivos.
+
+---
+
+## T17 - Implementar reconstrução dos relacionamentos
+**Responsável:** A definir
+
+Implementar no `BibliotecaRepository`.
+
+Objetivos:
+
+- Substituir referências temporárias pelas referências reais.
+- Associar empréstimos aos respectivos usuários.
+- Associar reservas aos respectivos usuários.
+- Associar empréstimos aos respectivos livros.
+- Associar reservas aos respectivos títulos.
+- Reconstruir a lista de títulos.
+- Reconstruir as filas de reserva.
+
+---
+
+## T18 - Criar métodos de persistência na BibliotecaRepository
+**Responsável:** A definir
+
+Criar métodos responsáveis por manter sincronizados os arquivos e as estruturas em memória.
+
+Exemplos:
+
+```java
+adicionarLivro(...)
+removerLivro(...)
+
+adicionarUsuario(...)
+removerUsuario(...)
+
+adicionarEmprestimo(...)
+removerEmprestimo(...)
+
+adicionarReserva(...)
+removerReserva(...)
+```
+
+---
+
+## T19 - Ajustar Services para persistência em arquivos
+**Responsável:** A definir
+
+Atualizar os Services para utilizar a nova camada de persistência.
+
+Impactos:
+
+- Cadastro de usuários.
+- Cadastro de livros.
+- Empréstimos.
+- Devoluções.
+- Reservas.
+
+---
+
+## T20 - Substituir EDs por Collections Framework
+**Responsável:** Ana Clara
+
+Avaliar substituição das estruturas implementadas manualmente por estruturas nativas do Java.
+
+Principais candidatas:
+
+```java
+List
+ArrayList
+Queue
+PriorityQueue
+Map
+```
+
+Garantir compatibilidade com os DAOs existentes.
+
+---
+
+## T21 - Ajustar menu superior do Inventário
+**Responsável:** Kaique
+
+Corrigir:
+
+- Alinhamento.
+- Espaçamento.
+- Organização visual.
+- Responsividade.
+
+---
+
+## T22 - Reduzir efeito de intermitência das telas
+**Responsável:** Kaique
+
+Investigar e corrigir o efeito de "piscar" durante a navegação entre telas.
+
+Possíveis causas:
+
+- Recarregamento excessivo de FXML.
+- Troca completa de Scene.
+- Recriação desnecessária de componentes.
+
+---
+
+# Estrutura dos Arquivos
+
+## usuarios.txt
+
+```text
+id | nome | email | senha | tipo
+```
+
+---
+
+## livros.txt
+
+```text
+id | nome | autor | isbn | genero | descricao | dataPublicacao | disponivel
+```
+
+---
+
+## emprestimos.txt
+
+```text
+id | dataEmprestimo | dataDevolucao | atrasado | idUsuario | idLivro
+```
+
+---
+
+## reservas.txt
+
+```text
+id | idUsuario | isbnTitulo | dataReserva
+```
+
+---
+
+## ids.txt
+
+Lista contendo todos os IDs institucionais válidos.
+
+Exemplo:
+
+```text
+s000001
+s000002
+s000003
+p000001
+p000002
+l000001
+```
+
+---
+
+# Dependências entre Tarefas
+
+1. T01 deve ser concluída antes da validação dos métodos de leitura.
+2. T16 deve ser concluída antes da implementação completa dos carregamentos.
+3. T03–T07 devem ser concluídas antes da reconstrução dos relacionamentos (T17).
+4. T17 depende da conclusão dos carregamentos.
+5. T18 depende da conclusão dos métodos de leitura.
+6. T19 depende da implementação da nova persistência.
+7. As tarefas de interface (T21 e T22) podem ser realizadas independentemente.
+
+---
+
+# Observações
+
+- A classe `DataBaseSeed` será removida.
+- Toda persistência passará a ser feita via arquivos.
+- O `PersistenceManager` será responsável apenas pela leitura e escrita dos arquivos.
+- O `BibliotecaRepository` será responsável por montar o estado completo do sistema.
+- Os relacionamentos entre objetos deverão ser reconstruídos após o carregamento dos dados.
+- Novas funcionalidades deverão utilizar o `BibliotecaRepository` como ponto central de acesso aos dados.
+
+
+# Manual de Trabalho com GitHub - LibQueue
+
+## 1. Clonar o Repositório
+
+```bash
+git clone https://github.com/Nuillexe/school-library-manager.git
+cd school-library-manager
+```
+
+---
+
+## 2. Entrar na Branch do Projeto
+
+Todo o desenvolvimento desta etapa será realizado na branch:
+
+```bash
+git checkout archive/Lp2
+```
+
+Caso necessário:
+
+```bash
+git checkout -b archive/Lp2 origin/archive/Lp2
+```
+
+⚠️ Não realizar alterações diretamente na `main`.
+
+---
+
+## 3. Atualizar Antes de Começar
+
+Sempre execute:
+
+```bash
+git pull origin archive/Lp2
+```
+
+Isso garante que você está trabalhando na versão mais recente do projeto.
+
+---
+
+## 4. Realizar Alterações
+
+Implemente apenas as tarefas sob sua responsabilidade e evite modificar arquivos de outros membros sem necessidade.
+
+---
+
+## 5. Criar um Commit
+
+Verifique os arquivos alterados:
+
+```bash
+git status
+```
+
+Adicione as alterações:
+
+```bash
+git add .
+```
+
+Realize o commit:
+
+```bash
+git commit -m "Descrição da alteração"
+```
+
+Exemplos:
+
+```bash
+git commit -m "Implementa carregarUsuarios"
+git commit -m "Implementa salvarEmprestimo"
+git commit -m "Refatora tela de inventario"
+```
+
+---
+
+## 6. Enviar para o GitHub
+
+```bash
+git push origin archive/Lp2
+```
+
+---
+
+## 7. Atualizar o README
+
+Ao iniciar ou concluir uma tarefa, atualizar o status correspondente:
+
+* ⬜ Não iniciado
+* 🟨 Em andamento
+* ✅ Concluído
+* ❌ Bloqueado
+
+---
+
+## Regras da Equipe
+
+* Não realizar push na `main`.
+* Sempre executar `git pull` antes de começar.
+* Utilizar mensagens de commit claras.
+* Atualizar o README conforme o andamento das tarefas.
+* Em caso de conflito, comunicar a equipe antes de realizar alterações.
+
+---
+
+## Fluxo Resumido
+
+```bash
+git clone https://github.com/Nuillexe/school-library-manager.git
+
+cd school-library-manager
+
+git checkout archive/Lp2
+
+git pull origin archive/Lp2
+
+# realizar alterações
+
+git add .
+
+git commit -m "Descrição da alteração"
+
+git push origin archive/Lp2
+```
+
+Ao final do desenvolvimento, será realizado um Pull Request da branch `archive/Lp2` para a `main`.
+

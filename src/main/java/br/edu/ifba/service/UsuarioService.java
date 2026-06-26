@@ -90,13 +90,10 @@ public class UsuarioService {
         emprestimo.setDataDevolucao(java.time.LocalDate.now()); // registra data real
         emprestimo.setAtrasado(atrasado);
 
-        // Libera o exemplar físico
-        // CORRIGIDO: era setEstaDisponivel() — nome correto é setDisponivel()
+
         livro.setDisponivel(true);
 
-        // Remove o empréstimo do registro do Título (atualiza quantidadeDisponivel internamente)
-        // CORRIGIDO: era listaDeTitulos.buscarTitulo() — método inexistente.
-        // Agora busca via b.getTitulosAtualizados().buscarPorNome()
+
         Titulo titulo = b.getTitulos().buscarPorNome(livro.getNome());
         if (titulo != null) {
             titulo.removerEmprestimo(emprestimo); // decrementa quantidadeDisponivel dentro de Titulo
@@ -148,17 +145,6 @@ public class UsuarioService {
         return resultado;
     }
 
-    /**
-     * Filtra títulos por gênero.
-     *
-     * ALTERAÇÃO: o método original usava listaDeTitulos.selecionaTituloPorGenero()
-     * — método inexistente. Trocado para b.getTitulosAtualizados().buscarPorGenero(),
-     * que existe em TituloDAOLista e já retorna Titulo[].
-     * O tipo de retorno também foi alterado de List<Titulo> para Titulo[].
-     *
-     * @param genero gênero desejado; se nulo ou vazio, retorna tudo
-     * @return array de títulos do gênero informado
-     */
     public Titulo[] filtrarPorGenero(String genero) {
         if (genero == null || genero.isBlank()) {
             return obterCatalogo();
@@ -170,13 +156,7 @@ public class UsuarioService {
     // RESERVAS
     // =========================================================================
 
-    /**
-     * Faz uma reserva para o usuário logado no título informado.
-     * O usuário pode ter no máximo 3 reservas simultâneas.
-     *
-     * @param titulo o título desejado
-     * @return true se a reserva foi efetuada; false caso contrário
-     */
+
     public boolean fazerReserva(Titulo titulo) {
         if (usuarioPossuiAtraso()) {
             System.out.println("⚠️ Acesso Bloqueado. Você possui livros em atraso. " +
