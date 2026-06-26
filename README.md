@@ -5,7 +5,7 @@
 - [📋 Quadro de Tarefas](#-quadro-de-tarefas)
 - [🎯 Objetivo da Atualização](#-objetivo-da-atualização)
 - [📝 Estrutura dos Arquivos](#-estrutura-dos-arquivos)
-- [📖 Manual de Trabalho com GitHub](#-manual-de-trabalho-com-github)
+- [📖 Manual de Trabalho com GitHub](#manual-de-trabalho-com-github---libqueue)
 
 ## 📊 Status
 
@@ -468,7 +468,7 @@ l000001
 - Novas funcionalidades deverão utilizar o `BibliotecaRepository` como ponto central de acesso aos dados.
 
 
-# Manual de Trabalho com GitHub - BiblioQueue
+# Manual de Trabalho com GitHub - LibQueue
 
 ## 1. Clonar o Repositório
 
