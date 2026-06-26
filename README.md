@@ -1,4 +1,32 @@
-# BiblioQueue - Pendências de Desenvolvimento
+# LibQueue - Pendências de Desenvolvimento
+
+# 📋 Quadro de Tarefas
+
+| Tarefa | Responsável | Status |
+|---------|-------------|---------|
+| Estruturar os arquivos `usuarios.txt`, `livros.txt`, `emprestimos.txt`, `reservas.txt` e `ids.txt` com dados iniciais | Indaia | ⬜ Não iniciado |
+| Adicionar mais dados de teste ao acervo e aos usuários | Indaia | ⬜ Não iniciado |
+| Implementar `carregarLivros()` | Maria Eduarda | ⬜ Não iniciado |
+| Implementar `carregarUsuarios()` | Maria Eduarda | ⬜ Não iniciado |
+| Implementar `carregarEmprestimos()` | Maria Eduarda | ⬜ Não iniciado |
+| Implementar `carregarReservas()` | Maria Eduarda | ⬜ Não iniciado |
+| Implementar `carregarIds()` | Maria Eduarda | ⬜ Não iniciado |
+| Implementar `salvarLivro(Livro livro)` | Charles | ⬜ Não iniciado |
+| Implementar `salvarUsuario(Usuario usuario)` | Charles | ⬜ Não iniciado |
+| Implementar `salvarEmprestimo(Emprestimo emprestimo)` | Charles | ⬜ Não iniciado |
+| Implementar `salvarReserva(Reserva reserva)` | Charles | ⬜ Não iniciado |
+| Implementar `sobrescreverLivros(...)` | Charles | ⬜ Não iniciado |
+| Implementar `sobrescreverUsuarios(...)` | Charles | ⬜ Não iniciado |
+| Implementar `sobrescreverEmprestimos(...)` | Charles | ⬜ Não iniciado |
+| Implementar `sobrescreverReservas(...)` | Charles | ⬜ Não iniciado |
+| Criar construtores auxiliares para reconstrução dos relacionamentos (Usuário, Livro, Título, etc.) | A definir | ⬜ Não iniciado |
+| Implementar reconstrução dos relacionamentos após leitura dos arquivos | A definir | ⬜ Não iniciado |
+| Criar métodos de persistência na `BibliotecaRepository` para manter sincronização entre memória e arquivos | A definir | ⬜ Não iniciado |
+| Ajustar Services para utilizar os novos métodos de persistência | A definir | ⬜ Não iniciado |
+| Substituir estruturas de dados personalizadas por estruturas nativas da Collection Framework | Ana Clara | ⬜ Não iniciado |
+| Ajustar menu superior da tela de Inventário do Usuário | Kaique | ⬜ Não iniciado |
+| Reduzir o efeito de "piscar" durante a navegação entre telas | Kaique | ⬜ Não iniciado |
+
 
 ## Objetivo da Atualização
 
