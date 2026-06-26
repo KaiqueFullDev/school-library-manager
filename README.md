@@ -1,64 +1,279 @@
 # LibQueue - Pendências de Desenvolvimento
 
+## 📊 Status
+
+| Status | Significado |
+|----------|----------|
+| ⬜ | Não iniciado |
+| 🟨 | Em andamento |
+| ✅ | Concluído |
+| ❌ | Bloqueado |
+
+---
+
 # 📋 Quadro de Tarefas
 
-| Tarefa | Responsável | Status |
-|---------|-------------|---------|
-| Estruturar os arquivos `usuarios.txt`, `livros.txt`, `emprestimos.txt`, `reservas.txt` e `ids.txt` com dados iniciais | Indaia | ⬜ Não iniciado |
-| Adicionar mais dados de teste ao acervo e aos usuários | Indaia | ⬜ Não iniciado |
-| Implementar `carregarLivros()` | Maria Eduarda | ⬜ Não iniciado |
-| Implementar `carregarUsuarios()` | Maria Eduarda | ⬜ Não iniciado |
-| Implementar `carregarEmprestimos()` | Maria Eduarda | ⬜ Não iniciado |
-| Implementar `carregarReservas()` | Maria Eduarda | ⬜ Não iniciado |
-| Implementar `carregarIds()` | Maria Eduarda | ⬜ Não iniciado |
-| Implementar `salvarLivro(Livro livro)` | Charles | ⬜ Não iniciado |
-| Implementar `salvarUsuario(Usuario usuario)` | Charles | ⬜ Não iniciado |
-| Implementar `salvarEmprestimo(Emprestimo emprestimo)` | Charles | ⬜ Não iniciado |
-| Implementar `salvarReserva(Reserva reserva)` | Charles | ⬜ Não iniciado |
-| Implementar `sobrescreverLivros(...)` | Charles | ⬜ Não iniciado |
-| Implementar `sobrescreverUsuarios(...)` | Charles | ⬜ Não iniciado |
-| Implementar `sobrescreverEmprestimos(...)` | Charles | ⬜ Não iniciado |
-| Implementar `sobrescreverReservas(...)` | Charles | ⬜ Não iniciado |
-| Criar construtores auxiliares para reconstrução dos relacionamentos (Usuário, Livro, Título, etc.) | A definir | ⬜ Não iniciado |
-| Implementar reconstrução dos relacionamentos após leitura dos arquivos | A definir | ⬜ Não iniciado |
-| Criar métodos de persistência na `BibliotecaRepository` para manter sincronização entre memória e arquivos | A definir | ⬜ Não iniciado |
-| Ajustar Services para utilizar os novos métodos de persistência | A definir | ⬜ Não iniciado |
-| Substituir estruturas de dados personalizadas por estruturas nativas da Collection Framework | Ana Clara | ⬜ Não iniciado |
-| Ajustar menu superior da tela de Inventário do Usuário | Kaique | ⬜ Não iniciado |
-| Reduzir o efeito de "piscar" durante a navegação entre telas | Kaique | ⬜ Não iniciado |
+| ID | Tarefa | Responsável | Status |
+|----|---------|-------------|---------|
+| T01 | Estruturar arquivos iniciais | Indaia | ⬜ |
+| T02 | Adicionar mais dados de teste | Indaia | ⬜ |
+| T03 | Implementar carregarLivros() | Maria Eduarda | ⬜ |
+| T04 | Implementar carregarUsuarios() | Maria Eduarda | ⬜ |
+| T05 | Implementar carregarEmprestimos() | Maria Eduarda | ⬜ |
+| T06 | Implementar carregarReservas() | Maria Eduarda | ⬜ |
+| T07 | Implementar carregarIds() | Maria Eduarda | ⬜ |
+| T08 | Implementar salvarLivro() | Charles | ⬜ |
+| T09 | Implementar salvarUsuario() | Charles | ⬜ |
+| T10 | Implementar salvarEmprestimo() | Charles | ⬜ |
+| T11 | Implementar salvarReserva() | Charles | ⬜ |
+| T12 | Implementar sobrescreverLivros() | Charles | ⬜ |
+| T13 | Implementar sobrescreverUsuarios() | Charles | ⬜ |
+| T14 | Implementar sobrescreverEmprestimos() | Charles | ⬜ |
+| T15 | Implementar sobrescreverReservas() | Charles | ⬜ |
+| T16 | Criar construtores auxiliares | A definir | ⬜ |
+| T17 | Implementar reconstrução dos relacionamentos | A definir | ⬜ |
+| T18 | Criar métodos de persistência na BibliotecaRepository | A definir | ⬜ |
+| T19 | Ajustar Services para persistência em arquivos | A definir | ⬜ |
+| T20 | Substituir EDs por Collections Framework | Ana Clara | ⬜ |
+| T21 | Ajustar menu superior do Inventário | Kaique | ⬜ |
+| T22 | Reduzir efeito de intermitência das telas | Kaique | ⬜ |
 
-Tipos de status 
-⬜ Não iniciado
-🟨 Em andamento
-✅ Concluído
-❌ Bloqueado
+---
 
-
-## Objetivo da Atualização
+# Objetivo da Atualização
 
 O sistema deixará de utilizar a classe `DataBaseSeed` como mecanismo de persistência em memória e passará a utilizar arquivos `.txt` para armazenamento permanente dos dados.
 
 A nova arquitetura será composta principalmente por:
 
-* `PersistenceManager` → responsável pela leitura e escrita dos arquivos.
-* `BibliotecaRepository` → responsável por manter os dados carregados, reconstruir relacionamentos entre objetos e fornecer acesso às informações do sistema.
-* Arquivos:
+- `PersistenceManager` → responsável pela leitura e escrita dos arquivos.
+- `BibliotecaRepository` → responsável por manter os dados carregados, reconstruir relacionamentos entre objetos e fornecer acesso às informações do sistema.
 
-  * `usuarios.txt`
-  * `livros.txt`
-  * `emprestimos.txt`
-  * `reservas.txt`
-  * `ids.txt`
+Arquivos utilizados:
+
+- `usuarios.txt`
+- `livros.txt`
+- `emprestimos.txt`
+- `reservas.txt`
+- `ids.txt`
 
 ---
 
-# Tarefas Gerais
+# Tarefas Detalhadas
 
-## 1. Criação de Construtores Auxiliares
+## T01 - Estruturar arquivos iniciais
+**Responsável:** Indaia
 
-**Responsável: Definir**
+Migrar os dados atualmente presentes no `DataBaseSeed` para:
 
-Criar construtores simplificados para permitir a criação de objetos temporários durante o carregamento dos arquivos.
+- `usuarios.txt`
+- `livros.txt`
+- `ids.txt`
+
+Também validar se os arquivos estão compatíveis com os métodos de leitura que serão implementados.
+
+---
+
+## T02 - Adicionar mais dados de teste
+**Responsável:** Indaia
+
+Adicionar:
+
+- Novos usuários.
+- Novos livros.
+- Novos exemplares.
+- Casos para testes de empréstimo.
+- Casos para testes de reserva.
+
+Objetivo: aumentar a cobertura de testes da aplicação.
+
+---
+
+## T03 - Implementar carregarLivros()
+**Responsável:** Maria Eduarda
+
+Implementar:
+
+```java
+carregarLivros()
+```
+
+O método deverá:
+
+- Ler `livros.txt`.
+- Instanciar objetos Livro.
+- Retornar uma estrutura contendo todos os livros carregados.
+
+---
+
+## T04 - Implementar carregarUsuarios()
+**Responsável:** Maria Eduarda
+
+Implementar:
+
+```java
+carregarUsuarios()
+```
+
+O método deverá:
+
+- Ler `usuarios.txt`.
+- Instanciar objetos Usuario.
+- Retornar a lista carregada.
+
+---
+
+## T05 - Implementar carregarEmprestimos()
+**Responsável:** Maria Eduarda
+
+Implementar:
+
+```java
+carregarEmprestimos()
+```
+
+Observação:
+
+- Inicialmente poderá utilizar usuários e livros temporários para permitir a reconstrução posterior dos relacionamentos.
+
+---
+
+## T06 - Implementar carregarReservas()
+**Responsável:** Maria Eduarda
+
+Implementar:
+
+```java
+carregarReservas()
+```
+
+Observação:
+
+- Inicialmente poderá utilizar títulos temporários.
+
+---
+
+## T07 - Implementar carregarIds()
+**Responsável:** Maria Eduarda
+
+Implementar:
+
+```java
+carregarIds()
+```
+
+Responsável por carregar todos os IDs válidos da instituição.
+
+---
+
+## T08 - Implementar salvarLivro()
+**Responsável:** Charles
+
+Implementar:
+
+```java
+salvarLivro(Livro livro)
+```
+
+Utilizar escrita incremental (`append`) para adicionar novos registros sem apagar os existentes.
+
+---
+
+## T09 - Implementar salvarUsuario()
+**Responsável:** Charles
+
+Implementar:
+
+```java
+salvarUsuario(Usuario usuario)
+```
+
+Utilizar escrita incremental.
+
+---
+
+## T10 - Implementar salvarEmprestimo()
+**Responsável:** Charles
+
+Implementar:
+
+```java
+salvarEmprestimo(Emprestimo emprestimo)
+```
+
+Utilizar escrita incremental.
+
+---
+
+## T11 - Implementar salvarReserva()
+**Responsável:** Charles
+
+Implementar:
+
+```java
+salvarReserva(Reserva reserva)
+```
+
+Utilizar escrita incremental.
+
+---
+
+## T12 - Implementar sobrescreverLivros()
+**Responsável:** Charles
+
+Implementar:
+
+```java
+sobrescreverLivros(...)
+```
+
+Utilizado principalmente em operações de remoção ou atualização.
+
+---
+
+## T13 - Implementar sobrescreverUsuarios()
+**Responsável:** Charles
+
+Implementar:
+
+```java
+sobrescreverUsuarios(...)
+```
+
+Utilizado principalmente em operações de remoção ou atualização.
+
+---
+
+## T14 - Implementar sobrescreverEmprestimos()
+**Responsável:** Charles
+
+Implementar:
+
+```java
+sobrescreverEmprestimos(...)
+```
+
+Utilizado principalmente em operações de remoção ou atualização.
+
+---
+
+## T15 - Implementar sobrescreverReservas()
+**Responsável:** Charles
+
+Implementar:
+
+```java
+sobrescreverReservas(...)
+```
+
+Utilizado principalmente em operações de remoção ou atualização.
+
+---
+
+## T16 - Criar construtores auxiliares
+**Responsável:** A definir
+
+Criar construtores simplificados para auxiliar no carregamento dos dados.
 
 Exemplos:
 
@@ -70,219 +285,112 @@ Livro(long id)
 Titulo(String isbn)
 ```
 
-Esses construtores serão utilizados apenas durante a leitura dos arquivos, permitindo a criação de objetos "fictícios" que posteriormente terão suas referências corrigidas pelo `BibliotecaRepository`.
+Esses construtores serão utilizados para criação de objetos temporários durante a leitura dos arquivos.
 
 ---
 
-## 2. Ajustes na Camada de Serviços
+## T17 - Implementar reconstrução dos relacionamentos
+**Responsável:** A definir
 
-**Responsável: Definir**
+Implementar no `BibliotecaRepository`.
 
-Após a implementação da persistência em arquivos, os serviços deverão ser revisados.
+Objetivos:
 
-Necessário:
-
-* Atualizar operações de cadastro.
-* Atualizar operações de remoção.
-* Atualizar operações de empréstimo.
-* Atualizar operações de devolução.
-* Atualizar operações de reserva.
-
-Sempre que houver alteração nos dados, ela deverá ser refletida tanto:
-
-* Nas estruturas em memória.
-* Nos arquivos de persistência.
+- Substituir referências temporárias pelas referências reais.
+- Associar empréstimos aos respectivos usuários.
+- Associar reservas aos respectivos usuários.
+- Associar empréstimos aos respectivos livros.
+- Associar reservas aos respectivos títulos.
+- Reconstruir a lista de títulos.
+- Reconstruir as filas de reserva.
 
 ---
 
-## 3. Métodos de Manipulação de Dados no BibliotecaRepository
+## T18 - Criar métodos de persistência na BibliotecaRepository
+**Responsável:** A definir
 
-**Responsável: Definir**
-
-Criar métodos responsáveis por:
-
-### Livros
-
-* adicionarLivro(...)
-* removerLivro(...)
-
-### Usuários
-
-* adicionarUsuario(...)
-* removerUsuario(...)
-
-### Empréstimos
-
-* adicionarEmprestimo(...)
-* removerEmprestimo(...)
-
-### Reservas
-
-* adicionarReserva(...)
-* removerReserva(...)
-
-### Inicialização do Sistema
-
-Implementar método responsável por:
-
-```java
-carregarSistema()
-```
-
-Fluxo esperado:
-
-1. Carregar livros.
-2. Carregar usuários.
-3. Carregar empréstimos.
-4. Carregar reservas.
-5. Carregar IDs válidos.
-6. Reconstruir relacionamentos.
-
----
-
-## 4. Reconstrução dos Relacionamentos
-
-**Responsável: Definir**
-
-Implementar método responsável por substituir referências temporárias pelas referências reais após o carregamento dos arquivos.
+Criar métodos responsáveis por manter sincronizados os arquivos e as estruturas em memória.
 
 Exemplos:
 
-* Emprestimo → Usuario
-* Emprestimo → Livro
-* Reserva → Usuario
-* Reserva → Titulo
-
-Além disso:
-
-* Associar empréstimos aos respectivos usuários.
-* Associar reservas aos respectivos usuários.
-* Reconstruir a lista de títulos.
-* Reconstruir filas de reserva.
-
----
-
-# Tarefas Individuais
-
-## Charles
-
-### Escrita Incremental (Append)
-
-Implementar:
-
 ```java
-salvarLivro(Livro livro)
+adicionarLivro(...)
+removerLivro(...)
 
-salvarUsuario(Usuario usuario)
+adicionarUsuario(...)
+removerUsuario(...)
 
-salvarEmprestimo(Emprestimo emprestimo)
+adicionarEmprestimo(...)
+removerEmprestimo(...)
 
-salvarReserva(Reserva reserva)
+adicionarReserva(...)
+removerReserva(...)
 ```
 
-Cada método deverá adicionar uma nova linha ao arquivo correspondente sem apagar os dados já existentes.
+---
+
+## T19 - Ajustar Services para persistência em arquivos
+**Responsável:** A definir
+
+Atualizar os Services para utilizar a nova camada de persistência.
+
+Impactos:
+
+- Cadastro de usuários.
+- Cadastro de livros.
+- Empréstimos.
+- Devoluções.
+- Reservas.
 
 ---
 
-### Reescrita Completa
+## T20 - Substituir EDs por Collections Framework
+**Responsável:** Ana Clara
 
-Implementar:
+Avaliar substituição das estruturas implementadas manualmente por estruturas nativas do Java.
+
+Principais candidatas:
 
 ```java
-sobrescreverLivros(...)
-
-sobrescreverUsuarios(...)
-
-sobrescreverEmprestimos(...)
-
-sobrescreverReservas(...)
+List
+ArrayList
+Queue
+PriorityQueue
+Map
 ```
-
-Esses métodos serão utilizados em operações de remoção e atualização.
-
----
-
-## Maria Eduarda
-
-### Leitura dos Arquivos
-
-Implementar:
-
-```java
-carregarLivros()
-
-carregarUsuarios()
-
-carregarEmprestimos()
-
-carregarReservas()
-
-carregarIds()
-```
-
-Os objetos carregados poderão utilizar referências temporárias (usuários, livros e títulos fictícios).
-
-A reconstrução final dos relacionamentos será feita posteriormente pelo `BibliotecaRepository`.
-
----
-
-## Indaia
-
-### Estruturação dos Arquivos Iniciais
-
-Migrar os dados atualmente presentes no `DataBaseSeed` para:
-
-* usuarios.txt
-* livros.txt
-* ids.txt
-
-Também é necessário:
-
-* Adicionar mais usuários para testes.
-* Adicionar mais livros e exemplares.
-* Garantir diversidade de dados para testes de empréstimo e reserva.
-
----
-
-## Kaique
-
-### Refinamento das Interfaces
-
-Ajustar:
-
-#### Inventário do Usuário
-
-* Corrigir alinhamento e organização do menu superior.
-
-#### Navegação
-
-* Reduzir o efeito de intermitência (piscar de tela) durante as trocas de páginas.
-
----
-
-## Ana Clara
-
-### Estruturas de Dados
-
-Substituir gradualmente estruturas implementadas manualmente por estruturas nativas do Java Collections Framework quando apropriado.
-
-Avaliar principalmente:
-
-* List
-* ArrayList
-* Queue
-* PriorityQueue
-* Map
 
 Garantir compatibilidade com os DAOs existentes.
+
+---
+
+## T21 - Ajustar menu superior do Inventário
+**Responsável:** Kaique
+
+Corrigir:
+
+- Alinhamento.
+- Espaçamento.
+- Organização visual.
+- Responsividade.
+
+---
+
+## T22 - Reduzir efeito de intermitência das telas
+**Responsável:** Kaique
+
+Investigar e corrigir o efeito de "piscar" durante a navegação entre telas.
+
+Possíveis causas:
+
+- Recarregamento excessivo de FXML.
+- Troca completa de Scene.
+- Recriação desnecessária de componentes.
 
 ---
 
 # Estrutura dos Arquivos
 
 ## usuarios.txt
-
-Campos:
 
 ```text
 id | nome | email | senha | tipo
@@ -292,8 +400,6 @@ id | nome | email | senha | tipo
 
 ## livros.txt
 
-Campos:
-
 ```text
 id | nome | autor | isbn | genero | descricao | dataPublicacao | disponivel
 ```
@@ -302,8 +408,6 @@ id | nome | autor | isbn | genero | descricao | dataPublicacao | disponivel
 
 ## emprestimos.txt
 
-Campos:
-
 ```text
 id | dataEmprestimo | dataDevolucao | atrasado | idUsuario | idLivro
 ```
@@ -311,8 +415,6 @@ id | dataEmprestimo | dataDevolucao | atrasado | idUsuario | idLivro
 ---
 
 ## reservas.txt
-
-Campos:
 
 ```text
 id | idUsuario | isbnTitulo | dataReserva
@@ -337,11 +439,23 @@ l000001
 
 ---
 
+# Dependências entre Tarefas
+
+1. T01 deve ser concluída antes da validação dos métodos de leitura.
+2. T16 deve ser concluída antes da implementação completa dos carregamentos.
+3. T03–T07 devem ser concluídas antes da reconstrução dos relacionamentos (T17).
+4. T17 depende da conclusão dos carregamentos.
+5. T18 depende da conclusão dos métodos de leitura.
+6. T19 depende da implementação da nova persistência.
+7. As tarefas de interface (T21 e T22) podem ser realizadas independentemente.
+
+---
+
 # Observações
 
-* A classe `DataBaseSeed` será removida.
-* Toda persistência passará a ser feita via arquivos.
-* O `PersistenceManager` será responsável apenas pela leitura e escrita dos arquivos.
-* O `BibliotecaRepository` será responsável por montar o estado completo do sistema.
-* Os relacionamentos entre objetos deverão ser reconstruídos após o carregamento dos dados.
-* Novas funcionalidades deverão utilizar o `BibliotecaRepository` como ponto central de acesso aos dados.
+- A classe `DataBaseSeed` será removida.
+- Toda persistência passará a ser feita via arquivos.
+- O `PersistenceManager` será responsável apenas pela leitura e escrita dos arquivos.
+- O `BibliotecaRepository` será responsável por montar o estado completo do sistema.
+- Os relacionamentos entre objetos deverão ser reconstruídos após o carregamento dos dados.
+- Novas funcionalidades deverão utilizar o `BibliotecaRepository` como ponto central de acesso aos dados.
