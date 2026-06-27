@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 
-<BorderPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifba.controller.features.bibliotecario.InventarioController">
+<BorderPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifba.controller.features.bibliotecario.InventarioController">
     <top>
         <HBox alignment="CENTER_LEFT" maxHeight="80.0" minHeight="80.0" prefHeight="80.0" style="-fx-background-color: #1A3783;" BorderPane.alignment="CENTER">
             <padding><Insets left="40.0" right="40.0" /></padding>
@@ -46,14 +51,14 @@
                             <Label style="-fx-text-fill: #555555; -fx-font-size: 16px;" text="Visualize e gerencie todos os títulos da biblioteca." />
                         </VBox>
 
-                        <FlowPane fx:id="containerLivros" hgap="25.0" vgap="25.0" alignment="TOP_LEFT" />
+                        <FlowPane fx:id="containerLivros" alignment="TOP_LEFT" hgap="25.0" vgap="25.0" />
                     </VBox>
                 </content>
             </ScrollPane>
 
             <StackPane alignment="BOTTOM_RIGHT" pickOnBounds="false">
-                <StackPane onMouseClicked="#handleAdicionarLivro" style="-fx-cursor: hand;" maxHeight="75" maxWidth="75">
-                    <StackPane.margin><Insets bottom="35.0" right="45.0"/></StackPane.margin>
+                <StackPane maxHeight="75" maxWidth="75" onMouseClicked="#handleAdicionarLivro" style="-fx-cursor: hand;">
+                    <StackPane.margin><Insets bottom="35.0" right="45.0" /></StackPane.margin>
                     <Circle fill="#1A3783" radius="35.0" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 4);" />
                     <Label style="-fx-text-fill: white; -fx-font-size: 40px; -fx-font-weight: bold;" text="+" />
                 </StackPane>
@@ -63,12 +68,54 @@
 
     <bottom>
         <HBox alignment="CENTER" prefHeight="85.0" style="-fx-background-color: white; -fx-border-color: #D1D1D1 transparent transparent transparent;">
-            <HBox spacing="60" alignment="CENTER" HBox.hgrow="ALWAYS">
-                <ImageView fitHeight="55.0" onMouseClicked="#dashboardController" preserveRatio="true" style="-fx-cursor: hand;"><Image url="@../../images/botaoDashboard.jpeg" /></ImageView>
-                <ImageView fitHeight="55.0" onMouseClicked="#inventarioController" preserveRatio="true" style="-fx-cursor: hand;"><Image url="@../../images/botaoInventario.jpeg" /></ImageView>
-                <ImageView fitHeight="55.0" onMouseClicked="#controleDeReservasController" preserveRatio="true" style="-fx-cursor: hand;"><Image url="@../../images/botaoFilaDeReserva.jpeg" /></ImageView>
-                <ImageView fitHeight="55.0" onMouseClicked="#controleDeEmprestimosController" preserveRatio="true" style="-fx-cursor: hand;"><Image url="@../../images/botaoDevolucoes.jpeg" /></ImageView>
-            </HBox>
+         <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+            <children>
+               <ImageView fitHeight="55.0" onMouseClicked="#dashboardController" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../../images/botaoDashboard.jpeg" />
+                  </image>
+                  <cursor>
+                     <Cursor fx:constant="HAND" />
+                  </cursor>
+               </ImageView>
+            </children>
+         </VBox>
+         <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+            <children>
+               <ImageView fitHeight="55.0" onMouseClicked="#inventarioController" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../../images/botaoInventario.jpeg" />
+                  </image>
+                  <cursor>
+                     <Cursor fx:constant="HAND" />
+                  </cursor>
+               </ImageView>
+            </children>
+         </VBox>
+         <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+            <children>
+               <ImageView fitHeight="55.0" onMouseClicked="#controleDeReservasController" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../../images/botaoFilaDeReserva.jpeg" />
+                  </image>
+                  <cursor>
+                     <Cursor fx:constant="HAND" />
+                  </cursor>
+               </ImageView>
+            </children>
+         </VBox>
+         <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+            <children>
+               <ImageView fitHeight="55.0" onMouseClicked="#controleDeEmprestimosController" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../../images/botaoDevolucoes.jpeg" />
+                  </image>
+                  <cursor>
+                     <Cursor fx:constant="HAND" />
+                  </cursor>
+               </ImageView>
+            </children>
+         </VBox>
         </HBox>
     </bottom>
 </BorderPane>

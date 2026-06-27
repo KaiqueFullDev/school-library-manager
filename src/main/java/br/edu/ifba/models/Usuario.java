@@ -11,6 +11,7 @@ public class Usuario {
     public TipoUsuario tipo;
     private int limiteLivros;
     private EmprestimoDAOLista listaEmprestimos;
+
     public Usuario(String id, String nome, String email, String senha, TipoUsuario tipo) {
         this.id = id;
         this.nome = nome;

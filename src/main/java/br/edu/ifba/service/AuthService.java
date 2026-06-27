@@ -4,8 +4,6 @@ import br.edu.ifba.models.Biblioteca;
 import br.edu.ifba.models.Usuario;
 import br.edu.ifba.enums.TipoUsuario;
 
-// ALTERAÇÃO: removido import de UsuarioDAOLista — não era usado diretamente aqui
-// (o acesso é sempre via b.getListaDeUsuarios())
 
 public class AuthService {
     private static Biblioteca b=Biblioteca.getInstance();
