@@ -6,9 +6,14 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="mainContainer" prefHeight="750.0" prefWidth="1150.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifba.controller.features.bibliotecario.DashboardController">
+<BorderPane fx:id="mainContainer" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifba.controller.features.bibliotecario.DashboardController">
 
   <top>
     <HBox alignment="CENTER_LEFT" maxHeight="80.0" minHeight="80.0" prefHeight="80.0" style="-fx-background-color: #1A3783;" BorderPane.alignment="CENTER">
@@ -32,7 +37,7 @@
             </ImageView>
           </children>
         </VBox>
-        <ImageView fx:id="irParaLogin" fitHeight="42.0" fitWidth="42.0" onMouseClicked="#handleLogout" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="irParaLogin" fitHeight="35.0" fitWidth="35.0" onMouseClicked="#handleLogout" pickOnBounds="true" preserveRatio="true">
           <image>
             <Image url="@../../images/botaoSeta.jpeg" />
           </image>
@@ -46,7 +51,7 @@
 
   <center>
     <HBox spacing="30" style="-fx-background-color: #E9EEF7;">
-      <padding><Insets bottom="30.0" left="40.0" right="40.0" top="30.0"/></padding>
+      <padding><Insets bottom="30.0" left="40.0" right="40.0" top="30.0" /></padding>
 
       <VBox spacing="25" HBox.hgrow="ALWAYS">
         <VBox spacing="5">
@@ -79,6 +84,10 @@
             <Label fx:id="lblQtdAtrasos" style="-fx-font-size: 32px; -fx-font-weight: bold;" text="0" />
             <Label style="-fx-text-fill: #E74C3C; -fx-font-weight: bold;" text="Pendências de Atraso" />
           </VBox>
+               <rowConstraints>
+                  <RowConstraints />
+                  <RowConstraints />
+               </rowConstraints>
         </GridPane>
       </VBox>
 
@@ -87,27 +96,61 @@
           <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Próximos da Fila" />
           <Label fx:id="lblFilaContagem" style="-fx-font-size: 18px; -fx-text-fill: #888888;" text="(0)" />
         </HBox>
-        <ListView fx:id="lvFilaReserva" VBox.vgrow="ALWAYS" style="-fx-background-color: transparent; -fx-background-insets: 0; -fx-padding: 0;" />
+        <ListView fx:id="lvFilaReserva" style="-fx-background-color: transparent; -fx-background-insets: 0; -fx-padding: 0;" VBox.vgrow="ALWAYS" />
       </VBox>
     </HBox>
   </center>
 
   <bottom>
     <HBox alignment="CENTER" prefHeight="90.0" style="-fx-background-color: white; -fx-border-color: #DDD transparent transparent transparent; -fx-padding: 10;">
-      <HBox alignment="CENTER" spacing="60" HBox.hgrow="ALWAYS">
-        <ImageView fitHeight="55.0" preserveRatio="true" onMouseClicked="#onNavDashboard" style="-fx-cursor: hand;">
-          <Image url="@../../images/botaoDashboard.jpeg" />
-        </ImageView>
-        <ImageView fitHeight="55.0" preserveRatio="true" onMouseClicked="#onNavInventario" style="-fx-cursor: hand;">
-          <Image url="@../../images/botaoInventario.jpeg" />
-        </ImageView>
-        <ImageView fitHeight="55.0" preserveRatio="true" onMouseClicked="#onNavReservas" style="-fx-cursor: hand;">
-          <Image url="@../../images/botaoFilaDeReserva.jpeg" />
-        </ImageView>
-        <ImageView fitHeight="55.0" preserveRatio="true" onMouseClicked="#onNavEmprestimos" style="-fx-cursor: hand;">
-          <Image url="@../../images/botaoDevolucoes.jpeg" />
-        </ImageView>
-      </HBox>
+         <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+            <children>
+               <ImageView fitHeight="55.0" onMouseClicked="#dashboardController" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../../images/botaoDashboard.jpeg" />
+                  </image>
+                  <cursor>
+                     <Cursor fx:constant="HAND" />
+                  </cursor>
+               </ImageView>
+            </children>
+         </VBox>
+         <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+            <children>
+               <ImageView fitHeight="55.0" onMouseClicked="#inventarioController" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../../images/botaoInventario.jpeg" />
+                  </image>
+                  <cursor>
+                     <Cursor fx:constant="HAND" />
+                  </cursor>
+               </ImageView>
+            </children>
+         </VBox>
+         <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+            <children>
+               <ImageView fitHeight="55.0" onMouseClicked="#controleDeReservasController" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../../images/botaoFilaDeReserva.jpeg" />
+                  </image>
+                  <cursor>
+                     <Cursor fx:constant="HAND" />
+                  </cursor>
+               </ImageView>
+            </children>
+         </VBox>
+         <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+            <children>
+               <ImageView fitHeight="55.0" onMouseClicked="#controleDeEmprestimosController" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../../images/botaoDevolucoes.jpeg" />
+                  </image>
+                  <cursor>
+                     <Cursor fx:constant="HAND" />
+                  </cursor>
+               </ImageView>
+            </children>
+         </VBox>
     </HBox>
   </bottom>
 
