@@ -337,19 +337,6 @@ public class BibliotecarioService {
 
     }
 
-    /**
-     * Remove um exemplar do acervo pelo ID (como long, pois Livro.getId() retorna Long).
-     *
-     * ALTERAÇÃO COMPLETA: o método original usava listaDeLivros.getLista().stream(),
-     * listaDeLivros.remover(), listaDeTitulos.buscarTitulo() e listaDeTitulos.remover()
-     * — todos inexistentes. Substituído por b.getAcervo().apagar(id), que já existe
-     * em LivroDAOLista e retorna o Livro removido (ou null se não encontrado).
-     * O parâmetro foi mantido como String para compatibilidade, mas observe que
-     * Livro.getId() retorna Long — verifique com o grupo se a UI vai passar String ou long.
-     *
-     * @param idLivro ID (em String) do exemplar a ser removido
-     * @return true se removido; false se não encontrado
-     */
     public boolean removerLivro(Long idLivro) {
 
         Livro removido = b.getAcervo().apagar(idLivro);
