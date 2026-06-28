@@ -2,10 +2,13 @@ package br.edu.ifba.models;
 
 import java.time.LocalDate;
 
+/**
+ * Classe que representa um exemplar de um livro físico no acervo da biblioteca.
+ */
 public class Livro {
 
     private Long id;
-    private static long idCount=0;
+    private static long idCount = 0; // Contador estático para geração de IDs automáticos e sequenciais
     private String nome;
     private String autor;
     private String isbn;
@@ -14,11 +17,14 @@ public class Livro {
     private LocalDate dataPublicacao;
     private boolean disponivel;
 
-    // Construtor da classe Livro
-    public Livro( String nome, String autor, String isbn, String genero,
+    /**
+     * Construtor completo da classe Livro.
+     * Ao ser instanciado, o livro recebe um ID único incremental e seu status inicial é 'disponível'.
+     */
+    public Livro(String nome, String autor, String isbn, String genero,
                  String descricao, LocalDate dataPublicacao) {
 
-        this.id = ++idCount;
+        this.id = ++idCount; // Incrementa e atribui o ID único de forma automática
         this.nome = nome;
         this.autor = autor;
         this.isbn = isbn;
@@ -26,103 +32,111 @@ public class Livro {
         this.descricao = descricao;
         this.dataPublicacao = dataPublicacao;
 
-        // Ao criar um livro, ele já inicia como disponível
+        // Todo exemplar recém-criado inicia como disponível para empréstimo
         this.disponivel = true;
     }
 
-    // Retorna o identificador do livro
+    // Métodos Getters e Setters com comentários descritivos
+
     public Long getId() {
         return id;
     }
 
-    // Retorna o nome/título do livro
     public String getNome() {
         return nome;
-    }
-
-    // Retorna o autor do livro
-    public String getAutor() {
-        return autor;
-    }
-
-    public String getIsbn() {
-        return isbn;
-    }
-
-    // Retorna o gênero do livro
-    public String getGenero() {
-        return genero;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public LocalDate getDataPublicacao() {
-        return dataPublicacao;
-    }
-
-    // Verifica se o livro está disponível para empréstimo
-    public boolean isDisponivel() {
-        return disponivel;
-    }
-
-    // Altera o status de disponibilidade do livro
-    public void setDisponivel(boolean disponivel) {
-        this.disponivel = disponivel;
     }
 
     public void setNome(String nome) {
         this.nome = nome;
     }
 
+    public String getAutor() {
+        return autor;
+    }
+
     public void setAutor(String autor) {
         this.autor = autor;
     }
 
-    public void setDataPublicacao(LocalDate dataPublicacao) {
-        this.dataPublicacao = dataPublicacao;
+    public String getIsbn() {
+        return isbn;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public String getGenero() {
+        return genero;
     }
 
     public void setGenero(String genero) {
         this.genero = genero;
     }
 
-    // Compara dois livros com base no id
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public LocalDate getDataPublicacao() {
+        return dataPublicacao;
+    }
+
+    public void setDataPublicacao(LocalDate dataPublicacao) {
+        this.dataPublicacao = dataPublicacao;
+    }
+
+    /**
+     * Verifica se o exemplar físico específico está livre para ser emprestado.
+     */
+    public boolean isDisponivel() {
+        return disponivel;
+    }
+
+    /**
+     * Altera o status de disponibilidade do exemplar (ex: mudar para false quando emprestado).
+     */
+    public void setDisponivel(boolean disponivel) {
+        this.disponivel = disponivel;
+    }
+
+    /**
+     * Compara dois objetos Livro com base em seus identificadores únicos (id).
+     */
     @Override
     public boolean equals(Object obj) {
-
-        // Verifica se é o mesmo objeto na memória
+        // Se for o exato mesmo espaço de memória, são iguais
         if (this == obj) {
             return true;
         }
 
-        // Verifica se o objeto é nulo ou de outra classe
+        // Se o objeto for nulo ou pertencer a outra classe, não são iguais
         if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
 
         Livro outro = (Livro) obj;
 
-        // Se o id for nulo, não é possível considerar iguais
+        // Caso o ID de um deles seja nulo, não podemos realizar a validação com segurança
         if (this.id == null) {
             return false;
         }
 
-        // Dois livros são iguais se tiverem o mesmo id
+        // Considera dois livros iguais apenas se possuírem o mesmo ID numérico
         return this.id.equals(outro.id);
     }
 
-    // Representação textual do objeto Livro
+    /**
+     * Retorna uma representação legível do objeto Livro em formato de texto.
+     */
     @Override
     public String toString() {
         return "Livro{" +
                 "id=" + id +
                 ", nome='" + nome + '\'' +
+                ", autor='" + autor + '\'' +
+                ", isbn='" + isbn + '\'' +
+                ", genero='" + genero + '\'' +
                 ", disponivel=" + disponivel +
                 '}';
     }

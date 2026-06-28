@@ -30,6 +30,7 @@ public class Usuario {
         this.listaEmprestimos = new EmprestimoDAOLista();
     }
 
+
     // Getters
     public String getId() { return id; }
     public String getNome() { return nome; }

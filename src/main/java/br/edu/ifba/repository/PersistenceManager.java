@@ -33,7 +33,7 @@ public class PersistenceManager {
         return null;
     }
 
-    public static void salvarLivros(LivroDAOLista livros) {
+    public static void salvarLivro(Livro livro) {
 
     }
 
@@ -56,6 +56,10 @@ public class PersistenceManager {
     }
 
     public static void sobrescreverReservas(ReservaDAOLista listaDeReservas){
+
+    }
+
+    public static void sobrescreverLivros(LivroDAOLista listaDeLivros){
 
     }
 }
