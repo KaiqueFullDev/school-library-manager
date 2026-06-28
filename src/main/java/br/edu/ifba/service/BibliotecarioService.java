@@ -6,17 +6,12 @@ import br.edu.ifba.repository.dao.LivroDAOLista;
 import br.edu.ifba.repository.dao.ReservaDAOFilaDePrioridade;
 import br.edu.ifba.repository.dao.ReservaDAOLista;
 
-// ALTERAÇÃO: removidos imports de "repository.*", "java.util.List", "java.util.stream.Collectors"
-// — nenhum deles é usado após as correções. Stream foi substituído por for loops
-// pois os DAOs do projeto retornam arrays, não Collections nem Streams.
-// ALTERAÇÃO: adicionado import de ReservaDAOLista (usado em listarPrimeirosDasFilas)
-
 public class BibliotecarioService {
 
     private Biblioteca b;
 
     public BibliotecarioService(Usuario userLogado) {
-        b = Biblioteca.getInstance();
+        this.b = Biblioteca.getInstance();
     }
 
     public Biblioteca getB() {
@@ -24,86 +19,72 @@ public class BibliotecarioService {
     }
 
     // =========================================================================
-    // DASHBOARD — dados gerais (tela do bibliotecário)
+    // DASHBOARD — Métricas para a tela do Administrador/Bibliotecário
     // =========================================================================
 
-    /** Total de exemplares (livros físicos) no acervo. */
+    /** Retorna o total de exemplares físicos cadastrados no acervo global. */
     public int getTotalLivros() {
         return b.getAcervo().quantidade();
     }
 
+    /** Retorna a listagem completa de títulos cadastrados. */
     public Titulo[] obterCatalogo() {
         return b.getTitulos().listar();
     }
 
-    /** Número total de empréstimos registrados (ativos e encerrados). */
+    /** Número total de empréstimos armazenados no histórico/lista global. */
     public int getNumeroEmprestimosAtivos() {
         return b.getListaDeEmprestimos().tamanho();
     }
 
     /**
-     * Número de empréstimos ativos e em atraso.
-     *
-     * ALTERAÇÃO COMPLETA: o método original tinha um "for()" vazio sem corpo
-     * nem condição, causando erro de compilação. Implementado corretamente:
-     * percorre todos os empréstimos e conta os que estão atrasados e ainda
-     * não foram devolvidos (dataDevolucao ainda é a data prevista, não a real —
-     * isAtrasado() recalcula automaticamente comparando com LocalDate.now()).
+     * Conta a quantidade de empréstimos atualmente em atraso.
+     * Percorre os registros usando o método adaptado com for-each tradicional.
      */
     public int getNumeroEmprestimosAtrasados() {
-        // CORRIGIDO: era for() vazio — implementado com for-each correto
         int cont = 0;
         for (Emprestimo e : b.getListaDeEmprestimos().listar()) {
-            if (e.isAtrasado())
+            if (e != null && e.isAtrasado()) {
                 cont++;
+            }
         }
         return cont;
     }
 
     /**
-     * Número de usuários com pelo menos um empréstimo atrasado.
-     *
-     * ALTERAÇÃO COMPLETA: o método original usava "listaDeUsuarios.getLista().stream()"
-     * — listaDeUsuarios não é um campo desta classe, e getLista() não existe em
-     * UsuarioDAOLista. Substituído por for-each sobre b.getListaDeUsuarios().listar()
-     * e o helper possuiAtraso() foi reescrito para usar o método já disponível
-     * em EmprestimoDAOLista.
+     * Conta o número de usuários únicos com pelo menos uma pendência por atraso.
      */
     public int getUsuariosComAtraso() {
-        // CORRIGIDO: era listaDeUsuarios.getLista().stream() — variável e método inexistentes
         int cont = 0;
         for (Usuario u : b.getListaDeUsuarios().listar()) {
-            if (b.getListaDeEmprestimos().usuarioTemAtraso(u))
+            if (u != null && b.getListaDeEmprestimos().usuarioTemAtraso(u)) {
                 cont++;
+            }
         }
         return cont;
     }
 
     /**
-     * Total de reservas ativas somando todas as filas de todos os títulos.
-     *
-     * ALTERAÇÃO COMPLETA: o método original usava "listaDeTitulos.getLista().stream()"
-     * — listaDeTitulos não é campo desta classe e getLista() não existe em TituloDAOLista.
-     * Substituído por for-each sobre b.getTitulosAtualizados().listarTitulos().
+     * Calcula o somatório de todas as reservas ativas em todas as filas de prioridade.
      */
     public int getTotalReservas() {
-
         int total = 0;
         for (Titulo t : b.getTitulos().listar()) {
-            total += t.getFilaDeReservas().tamanho();
+            if (t != null) {
+                total += t.getFilaDeReservas().tamanho();
+            }
         }
         return total;
     }
 
     /**
-     * Número de empréstimos realizados hoje.
-     * Percorre todos os empréstimos e conta aqueles cuja data de empréstimo é hoje.
+     * Conta a quantidade de empréstimos efetuados na data presente.
      */
     public int getNumeroEmprestimosHoje() {
         int cont = 0;
         java.time.LocalDate hoje = java.time.LocalDate.now();
         for (Emprestimo e : b.getListaDeEmprestimos().listar()) {
-            if (e.getDataEmprestimo().isEqual(hoje)) {
+            if (e != null && e.getDataEmprestimo().isEqual(hoje)) {
                 cont++;
             }
         }
@@ -111,9 +92,12 @@ public class BibliotecarioService {
     }
 
     // =========================================================================
-    // DEVOLUÇÕES — tela de controle de devoluções
+    // DEVOLUÇÕES — Controle administrativo de devoluções
     // =========================================================================
 
+    /**
+     * Registra a devolução de um livro por intermédio da tela do bibliotecário.
+     */
     public boolean registrarDevolucao(Emprestimo e) {
         if (e == null) {
             System.out.println("Empréstimo não encontrado ou já encerrado.");
@@ -121,110 +105,80 @@ public class BibliotecarioService {
         }
 
         Livro livro = e.getLivro();
-        Usuario user= e.getUsuario();
+        Usuario user = e.getUsuario();
 
+        // Disponibiliza o livro físico novamente
         livro.setDisponivel(true);
 
-        // Remove o empréstimo do registro do Título (já existia, mantido)
+        // Desvincula o empréstimo do controle de estoque do Título correspondente
         for (Titulo titulo : b.getTitulos().listar()) {
-            if (livro.getIsbn().equalsIgnoreCase(titulo.getIsbn())) {
-                titulo.removerEmprestimo(e); // decrementa quantidadeDisponivel internamente
-                if(!titulo.getFilaDeReservas().estaVazia()){
-                    if(atenderPrimeirosDaFila(titulo)){
-                        System.out.println("Foi possivel atender o primeiro dafila");
-                    }else {
-                        System.out.println("N Foi possivel atender o primeiro dafila");
-                    };
+            if (titulo != null && livro.getIsbn().equalsIgnoreCase(titulo.getIsbn())) {
+                titulo.removerEmprestimo(e);
+
+                // Se houver alguém aguardando na fila de prioridade, atende imediatamente
+                if (!titulo.getFilaDeReservas().estaVazia()) {
+                    atenderPrimeirosDaFila(titulo);
                 }
                 break;
             }
         }
-        // Remove do registro do Usuário
+
+        // Remove dos registros internos do usuário e do gerenciador global da biblioteca
         user.removerEmprestimo(e);
-        // Remove da lista global da bibliotec
         b.getListaDeEmprestimos().apagarPorId(e.getId());
 
         if (e.isAtrasado()) {
-            System.out.println("⚠️ Devolução registrada com atraso para: " + e.getUsuario().getNome());
+            System.out.println("⚠️ Devolução registrada com atraso para: " + user.getNome());
         } else {
-            System.out.println("✅ Devolução registrada com sucesso para: " + e.getUsuario().getNome());
+            System.out.println("✅ Devolução registrada com sucesso para: " + user.getNome());
         }
 
         return true;
     }
 
     // =========================================================================
-    // INVENTÁRIO — tela de inventário
+    // INVENTÁRIO — Telas de visualização organizada do acervo
     // =========================================================================
 
-    /**
-     * Lista todos os títulos do acervo, ordenados por nome.
-     *
-     * ALTERAÇÃO: método estava com corpo vazio, causando erro de compilação.
-     * Implementado usando b.getTitulosAtualizados() que já chama ordenar()
-     * internamente ao reconstruir a lista de títulos.
-     */
     public Titulo[] listarInventario() {
         return b.getTitulos().listar();
     }
 
-    /**
-     * Lista todos os exemplares (livros físicos) do acervo, ordenados por nome.
-     *
-     * ALTERAÇÃO: método estava com corpo vazio, causando erro de compilação.
-     * Implementado usando b.getAcervo() que retorna LivroDAOLista.
-     */
     public Livro[] listarExemplares() {
-        // CORRIGIDO: corpo vazio — implementado com os métodos corretos
-        b.getAcervo().ordenar();
+        b.getAcervo().ordenar(); // Aplica a ordenação alfabética interna definida no seu DAO
         return b.getAcervo().listar();
     }
 
     // =========================================================================
-    // CONTROLE DE RESERVAS — tela de controle de reservas
+    // CONTROLE DE RESERVAS
     // =========================================================================
 
     /**
-     * Retorna um array com o primeiro da fila de reservas de cada título
-     * que possua pelo menos uma reserva pendente.
-     *
-     * ALTERAÇÃO COMPLETA: o método original estava vazio. Implementado conforme
-     * a orientação do próprio comentário original: percorre todos os títulos,
-     * captura o primeiro da fila de cada um (proximo()), e coleta numa lista
-     * auxiliar (ReservaDAOLista) para retornar como array.
+     * Captura quem está no topo da fila de reservas de cada título no sistema.
      */
     public Reserva[] listarPrimeirosDasFilaDeReservasDeCadaTitulo() {
-
         ReservaDAOLista listaAuxiliar = new ReservaDAOLista();
         for (Titulo t : b.getTitulos().listar()) {
-            Reserva primeira = t.getFilaDeReservas().proximo(); // peek sem remover
-            if (primeira != null) {
-                listaAuxiliar.salvar(primeira);
+            if (t != null) {
+                Reserva primeira = t.getFilaDeReservas().proximo(); // Usa o peek() interno da PriorityQueue
+                if (primeira != null) {
+                    listaAuxiliar.salvar(primeira);
+                }
             }
         }
         return listaAuxiliar.listar();
     }
 
-    /**
-     * Retorna o array completo da fila de reservas de um título específico.
-     *
-     * ALTERAÇÃO: método estava vazio. Implementado conforme a orientação
-     * do próprio comentário original.
-     *
-     * @param t o título cuja fila se quer consultar
-     * @return array de Reserva ordenado por prioridade
-     */
     public Reserva[] listarFilaDeReserva(Titulo t) {
         if (t == null) return new Reserva[0];
         return t.getFilaDeReservas().listar();
     }
 
     /**
-     * Efetua o empréstimo para o primeiro da fila de reservas de um título.
-     * @param titulo o título cujo primeiro da fila será atendido
-     * @return true se o empréstimo foi gerado; false se fila vazia ou sem exemplar
+     * Aloca o livro diretamente para o próximo usuário prioritário da fila de reservas.
      */
     public boolean atenderPrimeirosDaFila(Titulo titulo) {
+        if (titulo == null) return false;
 
         Reserva proxima = titulo.getFilaDeReservas().proximo();
         if (proxima == null) {
@@ -232,30 +186,27 @@ public class BibliotecarioService {
             return false;
         }
 
-        // Busca exemplar disponível diretamente no Título
         Livro exemplar = titulo.getExemplarDisponivel();
         if (exemplar == null) {
-            System.out.println("Nenhum exemplar disponível de: " + titulo.getNome());
+            System.out.println("Nenhum exemplar físico disponível para atender a reserva de: " + titulo.getNome());
             return false;
         }
 
-        // Remove o primeiro da fila
+        // Consome a reserva retirando-a da fila do título e do índice global
         titulo.getFilaDeReservas().removerProximo();
-        b.getListaDeReservas().apagar(proxima.getId()); // remove também da lista global
+        b.getListaDeReservas().apagar(proxima.getId());
 
         Usuario beneficiario = proxima.getUsuario();
 
-        // Cria o empréstimo
-        // O prazo é calculado automaticamente pelo construtor Emprestimo(Usuario, Livro)
-        // com base no tipo do usuário (ALUNO=7 dias, outros=10 dias)
+        // Cria e consolida o novo vínculo de empréstimo
         exemplar.setDisponivel(false);
         Emprestimo emprestimo = new Emprestimo(beneficiario, exemplar);
 
         beneficiario.adicionarEmprestimo(emprestimo);
         b.getListaDeEmprestimos().salvar(emprestimo);
-        titulo.registrarEmprestimo(emprestimo); // decrementa quantidadeDisponivel
+        titulo.registrarEmprestimo(emprestimo);
 
-        System.out.println("✅ Empréstimo gerado para " + beneficiario.getNome() +
+        System.out.println("📢 Reserva Atendida! Empréstimo gerado para " + beneficiario.getNome() +
                 " — devolução prevista: " + emprestimo.getDataDevolucao());
         return true;
     }
@@ -264,31 +215,16 @@ public class BibliotecarioService {
     // GESTÃO DE USUÁRIOS
     // =========================================================================
 
-    /**
-     * Retorna a lista completa de usuários cadastrados.
-     *
-     * ALTERAÇÃO: método existia apenas com o Javadoc, sem assinatura nem corpo.
-     * Implementado agora.
-     */
     public Usuario[] listarUsuarios() {
-        // ADICIONADO: método estava completamente ausente (só tinha o comentário Javadoc)
         return b.getListaDeUsuarios().listar();
     }
 
-    /**
-     * Busca um usuário pelo ID.
-     *
-     * ALTERAÇÃO: o original usava "listaDeUsuarios.getLista().stream()" — variável
-     * e método inexistentes. Substituído pela chamada direta a buscarPorId(),
-     * que já existe em UsuarioDAOLista.
-     */
     public Usuario buscarUsuarioPorId(String id) {
-        // CORRIGIDO: era listaDeUsuarios.getLista().stream() — inexistentes
         return b.getListaDeUsuarios().buscarPorId(id);
     }
 
     // =========================================================================
-    // GESTÃO DO ACERVO
+    // GESTÃO DO ACERVO (Adicionar / Remover Livros)
     // =========================================================================
 
     public void adicionarLivro(Livro novoLivro) {
@@ -298,47 +234,34 @@ public class BibliotecarioService {
         }
 
         b.getAcervo().salvar(novoLivro);
-        for(Titulo t : b.getTitulos().listar()){
-            if(novoLivro.getIsbn().equals(t.getIsbn())){
-                correcaoDosDadosDoLivro(novoLivro,t);
+
+        // Verifica se o ISBN já existe para agrupar o exemplar sob o mesmo Título
+        for (Titulo t : b.getTitulos().listar()) {
+            if (t != null && novoLivro.getIsbn().equals(t.getIsbn())) {
+                correcaoDosDadosDoLivro(novoLivro, t);
                 t.addLivro(novoLivro);
-                System.out.println("✅ Livro '" + novoLivro.getNome() + "' adicionado ao acervo");
+                System.out.println("✅ Novo exemplar adicionado ao título '" + t.getNome() + "'");
                 return;
             }
         }
 
-        LivroDAOLista novaListaDeExemplares= new LivroDAOLista();
+        // Se for um ISBN inédito, cria-se uma nova estrutura de Título para gerenciar as futuras filas
+        LivroDAOLista novaListaDeExemplares = new LivroDAOLista();
         novaListaDeExemplares.salvar(novoLivro);
-        System.out.println("Livro adicionado");
         b.getTitulos().salvar(new Titulo(novaListaDeExemplares, new EmprestimoDAOLista(), new ReservaDAOFilaDePrioridade()));
-
+        System.out.println("✅ Novo título cadastrado com sucesso no acervo.");
     }
 
-    private static void correcaoDosDadosDoLivro(Livro l, Titulo t){
-        if(!(l.getAutor().equalsIgnoreCase(t.getAutor()))){
-            l.setAutor(t.getAutor());
-        }
-
-        if(!(l.getNome().equalsIgnoreCase(t.getNome()))){
-            l.setNome(t.getNome());
-        }
-
-        if(!(l.getGenero().equalsIgnoreCase(t.getGenero()))){
-            l.setGenero(t.getGenero());
-        }
-
-        if(!(l.getDescricao().equalsIgnoreCase(t.getDescricao()))){
-            l.setDescricao(t.getDescricao());
-        }
-
-        if(!(l.getDataPublicacao().isEqual(t.getDataPublicacao()))){
-            l.setDataPublicacao(t.getDataPublicacao());
-        }
-
+    /** Sincroniza metadados do exemplar para evitar divergências com o modelo do título */
+    private static void correcaoDosDadosDoLivro(Livro l, Titulo t) {
+        if (!(l.getAutor().equalsIgnoreCase(t.getAutor()))) l.setAutor(t.getAutor());
+        if (!(l.getNome().equalsIgnoreCase(t.getNome()))) l.setNome(t.getNome());
+        if (!(l.getGenero().equalsIgnoreCase(t.getGenero()))) l.setGenero(t.getGenero());
+        if (!(l.getDescricao().equalsIgnoreCase(t.getDescricao()))) l.setDescricao(t.getDescricao());
+        if (!(l.getDataPublicacao().isEqual(t.getDataPublicacao()))) l.setDataPublicacao(t.getDataPublicacao());
     }
 
     public boolean removerLivro(Long idLivro) {
-
         Livro removido = b.getAcervo().apagar(idLivro);
         if (removido == null) {
             System.out.println("Exemplar não encontrado.");
@@ -348,5 +271,3 @@ public class BibliotecarioService {
         return true;
     }
 }
-
-

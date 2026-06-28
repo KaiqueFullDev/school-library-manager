@@ -97,7 +97,8 @@ Objetivo: aumentar a cobertura de testes da aplicação.
 ---
 
 ## T03 - Implementar carregarLivros()
-**Responsável:** Maria Eduarda
+**Responsável:** Charles
+**Classe:** PeristenceManager
 
 Implementar:
 
@@ -114,9 +115,8 @@ O método deverá:
 ---
 
 ## T04 - Implementar carregarUsuarios()
-**Responsável:** Maria Eduarda
-
-Implementar:
+**Responsável:** Charles
+**Classe:** PeristenceManagerImplementar:
 
 ```java
 carregarUsuarios()
@@ -131,9 +131,8 @@ O método deverá:
 ---
 
 ## T05 - Implementar carregarEmprestimos()
-**Responsável:** Maria Eduarda
-
-Implementar:
+**Responsável:** Charles
+**Classe:** PeristenceManagerImplementar:
 
 ```java
 carregarEmprestimos()
@@ -146,9 +145,8 @@ Observação:
 ---
 
 ## T06 - Implementar carregarReservas()
-**Responsável:** Maria Eduarda
-
-Implementar:
+**Responsável:** Charles
+**Classe:** PeristenceManagerImplementar:
 
 ```java
 carregarReservas()
@@ -161,9 +159,8 @@ Observação:
 ---
 
 ## T07 - Implementar carregarIds()
-**Responsável:** Maria Eduarda
-
-Implementar:
+**Responsável:** Charles
+**Classe:** PeristenceManagerImplementar:
 
 ```java
 carregarIds()
@@ -174,9 +171,8 @@ Responsável por carregar todos os IDs válidos da instituição.
 ---
 
 ## T08 - Implementar salvarLivro()
-**Responsável:** Charles
-
-Implementar:
+**Responsável:** Maria Eduarda
+**Classe:** PeristenceManagerImplementar:
 
 ```java
 salvarLivro(Livro livro)
@@ -187,7 +183,8 @@ Utilizar escrita incremental (`append`) para adicionar novos registros sem apaga
 ---
 
 ## T09 - Implementar salvarUsuario()
-**Responsável:** Charles
+**Responsável:** Maria Eduarda
+**Classe:** PeristenceManagerImplementar:
 
 Implementar:
 
@@ -200,8 +197,8 @@ Utilizar escrita incremental.
 ---
 
 ## T10 - Implementar salvarEmprestimo()
-**Responsável:** Charles
-
+**Responsável:** Maria Eduarda
+**Classe:** PeristenceManagerImplementar:
 Implementar:
 
 ```java
@@ -213,8 +210,8 @@ Utilizar escrita incremental.
 ---
 
 ## T11 - Implementar salvarReserva()
-**Responsável:** Charles
-
+**Responsável:** Maria Eduarda
+**Classe:** PeristenceManagerImplementar:
 Implementar:
 
 ```java
@@ -226,8 +223,8 @@ Utilizar escrita incremental.
 ---
 
 ## T12 - Implementar sobrescreverLivros()
-**Responsável:** Charles
-
+**Responsável:** Maria Eduarda
+**Classe:** PeristenceManagerImplementar:
 Implementar:
 
 ```java
@@ -239,8 +236,8 @@ Utilizado principalmente em operações de remoção ou atualização.
 ---
 
 ## T13 - Implementar sobrescreverUsuarios()
-**Responsável:** Charles
-
+**Responsável:** Maria Eduarda
+**Classe:** PeristenceManagerImplementar:
 Implementar:
 
 ```java
@@ -252,7 +249,8 @@ Utilizado principalmente em operações de remoção ou atualização.
 ---
 
 ## T14 - Implementar sobrescreverEmprestimos()
-**Responsável:** Charles
+**Responsável:** Maria Eduarda
+**Classe:** PeristenceManagerImplementar:
 
 Implementar:
 
@@ -265,7 +263,8 @@ Utilizado principalmente em operações de remoção ou atualização.
 ---
 
 ## T15 - Implementar sobrescreverReservas()
-**Responsável:** Charles
+**Responsável:** Maria Eduarda
+**Classe:** PeristenceManagerImplementar:
 
 Implementar:
 
@@ -278,7 +277,7 @@ Utilizado principalmente em operações de remoção ou atualização.
 ---
 
 ## T16 - Criar construtores auxiliares
-**Responsável:** A definir
+**Responsável:** Indaia
 
 Criar construtores simplificados para auxiliar no carregamento dos dados.
 
@@ -297,7 +296,7 @@ Esses construtores serão utilizados para criação de objetos temporários dura
 ---
 
 ## T17 - Implementar reconstrução dos relacionamentos
-**Responsável:** A definir
+**Responsável:** Emanuel
 
 Implementar no `BibliotecaRepository`.
 
@@ -314,7 +313,7 @@ Objetivos:
 ---
 
 ## T18 - Criar métodos de persistência na BibliotecaRepository
-**Responsável:** A definir
+**Responsável:** Emanuel 
 
 Criar métodos responsáveis por manter sincronizados os arquivos e as estruturas em memória.
 
@@ -336,8 +335,8 @@ removerReserva(...)
 
 ---
 
-## T19 - Ajustar Services para persistência em arquivos
-**Responsável:** A definir
+## T19 - Ajustar Services com base em Biblioteca Repositori 
+**Responsável:** Charles
 
 Atualizar os Services para utilizar a nova camada de persistência.
 
